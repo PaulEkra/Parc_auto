@@ -13,6 +13,7 @@ from django.db import models
 from django.utils.timesince import timesince
 import unicodedata
 
+
 def remove_accents(value):
     """
     Remplace les caractères accentués par leur équivalent non accentué.
@@ -58,6 +59,7 @@ def rename_photo_jauge(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'photo_jauge/{new_filename}'
 
+
 def rename_jaugeDemandeProlongement(instance, filename):
     """
     Fonction de renommage des images.
@@ -66,6 +68,7 @@ def rename_jaugeDemandeProlongement(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'jaugeDemandeProlongement/{new_filename}'
+
 
 def jaugeArrive(instance, filename):
     """
@@ -76,6 +79,7 @@ def jaugeArrive(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'jaugeArrive/{new_filename}'
 
+
 def ImagesGestionnaire(instance, filename):
     """
     Fonction de renommage des images.
@@ -84,6 +88,7 @@ def ImagesGestionnaire(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'ImagesGestionnaire/{new_filename}'
+
 
 def recu(instance, filename):
     """
@@ -94,6 +99,7 @@ def recu(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'recu/{new_filename}'
 
+
 def Autres(instance, filename):
     """
     Fonction de renommage des images.
@@ -103,6 +109,7 @@ def Autres(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'Autres/{new_filename}'
 
+
 def ImagesConducteur(instance, filename):
     """
     Fonction de renommage des images.
@@ -111,6 +118,7 @@ def ImagesConducteur(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'ImagesConducteur/{new_filename}'
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -234,7 +242,6 @@ class Type_Commerciale(models.Model):
         return self.modele
 
 
-
 class Vehicule(models.Model):
     date_mise_a_jour = models.DateTimeField(verbose_name="Date de mise a jour", auto_now=True)
     utilisateur = models.ForeignKey(Utilisateur, on_delete=models.SET_NULL, null=True, blank=True)
@@ -243,14 +250,14 @@ class Vehicule(models.Model):
     type_commercial = models.ForeignKey(Type_Commerciale, on_delete=models.CASCADE)
     numero_chassis = models.CharField(max_length=25, unique=True)
     couleur = models.CharField(max_length=20, blank=True, null=True)
-    carte_grise = models.CharField(max_length=25, unique=True)
+    carte_grise = models.CharField(max_length=25, unique=True, blank=True, null=True)
     date_mise_circulation = models.DateField(blank=True, null=True)
     carrosserie = models.CharField(max_length=100, blank=True, null=True)
     place_assises = models.IntegerField(blank=True, null=True)
     date_expiration_assurance = models.DateField()  # Attestation d'assurance
     kilometrage = models.IntegerField()
-    image_recto = models.ImageField(upload_to=rename_image)
-    image_verso = models.ImageField(upload_to=rename_image)
+    image_recto = models.ImageField(upload_to=rename_image, blank=True, null=True)
+    image_verso = models.ImageField(upload_to=rename_image, blank=True, null=True)
     date_visite_technique = models.DateField()
     taille_reservoir = models.IntegerField()
     videnge = models.IntegerField()

@@ -43,7 +43,7 @@
                                             {% endif %}
                                         </div>
 
-                                        <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}">
+                                        <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}" id="carte_grise_group">
                                             <label for="carte_grise" class="font-weight-bold">Numéro de la carte grise :</label>
                                             <input type="text" class="form-control" id="carte_grise" placeholder="Exemple : CG30151017" name="carte_grise" value="{% if form.carte_grise.value %}{{ form.carte_grise.value }}{% endif %}">
                                             {% if form.carte_grise.errors %}
@@ -127,7 +127,7 @@
                                                 {% endif %}
                                             </div>
 
-                                        <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}">
+                                        <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}" id="carte_grise_recto">
                                             <label for="image_recto" class="font-weight-bold">Modifier l'image recto de la carte grise :</label>
                                             <div class="form-control h-auto" style="border-radius: 10px">
                                                 <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recto" name="image_recto">
@@ -223,7 +223,7 @@
                                             {% endif %}
                                         </div>
 
-                                        <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}">
+                                        <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recipisse-date">
                                             <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
                                             <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date" name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
                                             {% if form.date_limite_recepisse.errors %}
@@ -241,7 +241,7 @@
                                                 {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.image_recepisse.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.image_recepisse.errors %}has-error{% endif %}" id="recepisse-img">
                                                 <label for="image_recepisse" class="font-weight-bold">Sélectionner l'image du recepisse d'immaticulation :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
                                                     <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recepisse" name="image_recepisse">
@@ -261,7 +261,7 @@
                                                     {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}" id="carte_grise_verso">
                                                 <label for="image_verso" class="font-weight-bold">Modifier l'image verso de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
                                                     <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso">
@@ -284,6 +284,24 @@
             </div>
          </div>
       </div>
+
+{#      Modal de demande #}
+      <div class="modal fade" id="carteGriseModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="exampleModalLabel2">Est-ce que vous avez une carte grise?</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-success" id="btnOui">Oui</button>
+                        <button type="button" class="btn btn-danger" id="btnNon">Non</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
       <!-- Wrapper END -->
       <!-- Footer -->
       {% include 'footer.html' %}
@@ -304,5 +322,25 @@
         document.getElementById("date_limite_certificatVignette").min = today;
         document.getElementById("date_limite_recepisse").min = today;
         document.getElementById("date_limite_assurance_carteBrune").min = today;
+
+
+         $(document).ready(function() {
+             // Check if the carte grise input is empty
+             if (!$('#carte_grise').val()) {
+                 $('#carteGriseModal').modal('show');
+             }
+              $('#btnOui').click(function() {
+                $('#recipisse-date').attr('hidden', true);
+                $('#recepisse-img').attr('hidden', true);
+                $('#carteGriseModal').modal('hide');
+            });
+              $('#btnNon').click(function() {
+                  $('#carte_grise_group').attr('hidden', true);
+                  $('#carte_grise_recto').attr('hidden', true);
+                  $('#carte_grise_verso').attr('hidden', true);
+                  $('#carteGriseModal').modal('hide');
+
+            });
+         })
     </script>
 {% endblock %}

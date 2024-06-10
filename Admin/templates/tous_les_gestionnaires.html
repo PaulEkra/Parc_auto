@@ -69,6 +69,7 @@
                                                 <thead>
                                                 <tr class="table-danger">
                                                     <th>Image</th>
+                                                    <th>Username</th>
                                                     <th>Nom</th>
                                                     <th>Prénoms</th>
                                                     <th>Email</th>
@@ -88,6 +89,7 @@
                                                             </svg>
                                                         {% endif  %}
                                                         </td>
+                                                        <td>{{ gestionnaire.username|title }}</td>
                                                         <td>{{ gestionnaire.nom|title }}</td>
                                                         <td>{{ gestionnaire.prenom|title }}</td>
                                                         <td>{{ gestionnaire.email }}</td>

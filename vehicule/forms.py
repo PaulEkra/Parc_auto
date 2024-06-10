@@ -66,12 +66,15 @@ class VehiculeForm(forms.ModelForm):
             'required': True,
         })
 
-        self.fields['image_recto'].required = True
-        self.fields['image_verso'].required = True
+        self.fields['image_recto'].required = False
+        self.fields['image_verso'].required = False
         self.fields['date_expiration_assurance'].required = True
         self.fields['date_visite_technique'].required = True
         self.fields['videnge'].required = True
         self.fields['taille_reservoir'].required = True
+        self.fields['date_limite_assurance_carteBrune'].required = True
+        self.fields['date_limite_taxe'].required = True
+        self.fields['date_limite_certificatVignette'].required = True
         self.fields['date_mise_circulation'].required = True
         self.fields['energie'].widget.attrs.update({
             'class': "form-control",
@@ -101,7 +104,7 @@ class VehiculeForm(forms.ModelForm):
         self.fields['carte_grise'].widget.attrs.update({
             'class': "form-control",
             'id': "carte_grise",
-            'required': True,
+            'required': False,
         })
         self.fields['couleur'].widget.attrs.update({
             'class': "form-control",
@@ -319,6 +322,7 @@ class typeForm(forms.ModelForm):
     class Meta:
         model = Type_Commerciale
         fields = '__all__'
+
 
 class typeCarburantForm(forms.ModelForm):
     class Meta:

@@ -59,8 +59,16 @@
                                                     <p class="help-block">{{ form.numero_immatriculation.errors.0 }}</p>
                                                 {% endif %}
                                             </div>
+                                            <div class="form-group col-md-12" id="select-doc">
+                                                <label for="carte_grise" class="font-weight-bold">???:</label>
+                                                <select id="document" name="carte_grise" class="form-control" required>
+                                                    <option value="">Choisir un type de document</option>
+                                                    <option value="carte_grise">Carte Grise</option>
+                                                    <option value="recepisse">Récépissé</option>
+                                                </select>
+                                            </div>
 
-                                            <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}" id="carte_grise_group" hidden="hidden">
                                                 <label for="carte_grise" class="font-weight-bold">Numéro de la carte grise :</label>
                                                 <input type="text" class="form-control" id="carte_grise" placeholder="Exemple : CG30151017" name="carte_grise" value="{% if form.carte_grise.value %}{{ form.carte_grise.value }}{% endif %}">
                                                 {% if form.carte_grise.errors %}
@@ -154,7 +162,7 @@
                                                 {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}" id="carte_grise_recto" hidden="hidden">
                                                 <label for="image_recto" class="font-weight-bold">Sélectionner l'image recto de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
                                                     <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recto" name="image_recto">
@@ -230,7 +238,7 @@
                                                 {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recepisse" hidden="hidden">
                                                 <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
                                                 <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date " name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
                                                 {% if form.date_limite_recepisse.errors %}
@@ -246,7 +254,7 @@
                                                 {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}" id="carte_grise_verso" hidden="hidden">
                                                 <label for="image_verso" class="font-weight-bold">Sélectionner l'image verso de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
                                                     <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso">
@@ -266,7 +274,7 @@
                                                 {% endif %}
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.image_recepisse.errors %}has-error{% endif %}">
+                                            <div class="form-group col-md-12 {% if form.image_recepisse.errors %}has-error{% endif %}" id="recepisse-img" hidden="hidden">
                                                 <label for="image_recepisse" class="font-weight-bold">Sélectionner l'image du recepisse d'immaticulation :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
                                                     <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recepisse" name="image_recepisse">
@@ -685,6 +693,33 @@
               })
             $('#marque2').select2();
         });
+    </script>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var selectType = document.getElementById('document');
+            $('#document').change(function () {
+                var document = $(this).val();
+                var selectedOption = $(this).find('option:selected'); // Déclarer et récupérer l'élément sélectionné
+                var selectedTypeText = selectedOption.text(); // Récupérer le texte de l'option sélectionnée
+                // Vérifie si l'identifiant du type d'entretien est une chaîne non vide
+                if(selectedTypeText=="Carte Grise"){
+
+                    $('#carte_grise_group').removeAttr('hidden disabled');
+                    $('#carte_grise_recto').removeAttr('hidden disabled');
+                    $('#carte_grise_verso').removeAttr('hidden disabled');
+                    $('#select-doc').attr('hidden', true);
+                } else if(selectedTypeText=="Récépissé"){
+
+                    $('#recepisse').removeAttr('hidden disabled');
+                    $('#recepisse-img').removeAttr('hidden disabled');
+                    $('#select-doc').attr('hidden', true);
+                }
+            });
+        });
+
+
+
     </script>
 
     </body>

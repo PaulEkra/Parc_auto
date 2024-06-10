@@ -122,7 +122,7 @@
 
                                         <tr>
                                             <td><strong>NUMÉRO DE LA CARTE GRISE :</strong></td>
-                                            <td class="center-text">{{ vehicule.carte_grise }}</td>
+                                            <td class="center-text">{% if vehicule.carte_grise %} {{ vehicule.carte_grise }} {% else %} PAS DE CARTE GRISE {% endif %}</td>
                                         </tr>
 
                                         <tr>
@@ -149,14 +149,15 @@
                                             <td><strong>DATE DE VISITE TECHNIQUE :</strong></td>
                                             <td class="text-center">{{ vehicule.date_visite_technique }}</td>
                                         </tr>
-
+                                        {% if  vehicule.date_limite_recepisse %}
                                         <tr>
-                                            <td><strong>DATE LIMITE DU RECEPISSE D IDENTIFICATION :</strong></td>
+                                            <td><strong>DATE LIMITE DU RECEPISSE D'IMMATRICULATION :</strong></td>
                                             <td class="text-center">{{ vehicule.date_limite_recepisse }}</td>
                                         </tr>
+                                        {% endif %}
 
                                         <tr>
-                                            <td><strong>DATE LIMITE DE L ASSURANCE CARTE BRUNE :</strong></td>
+                                            <td><strong>DATE LIMITE DE L'ASSURANCE CARTE BRUNE :</strong></td>
                                             <td class="text-center">{{ vehicule.date_limite_assurance_carteBrune }}</td>
                                         </tr>
 
@@ -200,6 +201,7 @@
                                     <div class="imageContent"  style="align-items: center; text-align: center;">
                                         <div style="margin-bottom: 25px">
                                         <td>
+                                        {% if vehicule.image_recto and  vehicule.image_verso %}
                                         <label style="display: block; text-align: center;">LA CARTE GRISE</label>
                                             {% if vehicule.image_recto  %}
                                                 <img src="{{ vehicule.image_recto.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_recto.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
@@ -208,6 +210,7 @@
                                          <img src="{{ vehicule.image_verso.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_verso.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                         {% endif  %}
                                      </td>
+                                        {% endif %}
                                         </div>
                                      <div>  <label style="display: block; text-align: center;text-decoration: underline;text-underline: #0b0b0b">PHOTOS DU VEHICULE </label></div>
 
