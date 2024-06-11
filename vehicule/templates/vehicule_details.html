@@ -202,7 +202,7 @@
                                         <div style="margin-bottom: 25px">
                                         <td>
                                         {% if vehicule.image_recto and  vehicule.image_verso %}
-                                        <label style="display: block; text-align: center;">LA CARTE GRISE</label>
+                                        <label style="display: block; text-align: center;" id="carte_grise_img">LA CARTE GRISE</label>
                                             {% if vehicule.image_recto  %}
                                                 <img src="{{ vehicule.image_recto.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_recto.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                         {% endif  %}
@@ -212,16 +212,16 @@
                                      </td>
                                         {% endif %}
                                         </div>
-                                     <div>  <label style="display: block; text-align: center;text-decoration: underline;text-underline: #0b0b0b">PHOTOS DU VEHICULE </label></div>
+                                     <div>  <label style="display: block; text-align: center;text-decoration: underline;text-underline: #0b0b0b" id="vehicule_img">PHOTOS DU VEHICULE </label></div>
 
                                         {% for image in image %}
                                             <img src="{{ image.images.url }}" alt="profile-img" class="vehicule-image mb-5" onclick="showImagePopup2('{{ image.images.url }}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                         {% endfor %}
 
                                     </div>
-                                    <div style="margin-bottom: 25px">
+                                    <div style="margin-bottom: 25px ">
                                         <td>
-                                            <label style="display: block; text-align: center;">AUTRES PHOTOS DU VEHICULE</label>
+                                            <label style="display: block; text-align: center;" id="other_img">AUTRES PHOTOS DU VEHICULE</label>
                                             {% if vehicule.image_taxe  %}
                                                 <img src="{{ vehicule.image_taxe.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_taxe.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                             {% endif  %}
@@ -250,6 +250,15 @@
             </div>
         </div>
     </div>
+    <style>
+        .vehicule-image img {
+            max-width: 20%;
+            height: auto;
+            margin: 10px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+    </style>
     {% include 'footer.html' %}
     <script>
         function generatePDF() {
@@ -275,13 +284,22 @@
                 images[i].style.marginLeft = '100px';
                 images[i].style.marginTop = '50px';
                 images[i].style.whiteSpace = 'nowrap';
-                images[i].style.pageBreakInside= 'avoid';
+
 
                 if ((i + 1) % 3 === 0) {
                     images[i].style.marginRight = '0';
+
                 } else {
                     images[i].style.marginRight = '10px';
                 }
+            }
+            var vehiculeimg = contentCopy.querySelector('#vehicule_img');
+            if (vehiculeimg) {
+                vehiculeimg.style.pageBreakBefore = 'always';
+            }
+            var otherImg = contentCopy.querySelector('#other_img');
+            if (otherImg) {
+                otherImg.style.pageBreakBefore = 'always';
             }
             var options = {
                 filename: '{{ vehicule.marque }}-{{ vehicule.numero_immatriculation }}.pdf',
