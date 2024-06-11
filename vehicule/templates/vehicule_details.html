@@ -225,8 +225,10 @@
                                             {% if vehicule.image_taxe  %}
                                                 <img src="{{ vehicule.image_taxe.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_taxe.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                             {% endif  %}
-                                            {% if vehicule.image_recepisse  %}
-                                                <img src="{{ vehicule.image_recepisse.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_recepisse.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% if  vehicule.date_limite_recepisse %}
+                                                {% if vehicule.image_recepisse  %}
+                                                    <img src="{{ vehicule.image_recepisse.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_recepisse.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                                {% endif  %}
                                             {% endif  %}
                                             {% if vehicule.image_rapport_identification  %}
                                                 <img src="{{ vehicule.image_rapport_identification.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_rapport_identification.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
@@ -273,6 +275,7 @@
                 images[i].style.marginLeft = '100px';
                 images[i].style.marginTop = '50px';
                 images[i].style.whiteSpace = 'nowrap';
+                images[i].style.pageBreakInside= 'avoid';
 
                 if ((i + 1) % 3 === 0) {
                     images[i].style.marginRight = '0';

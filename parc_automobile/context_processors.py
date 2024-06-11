@@ -194,6 +194,10 @@ def accueil_data(request):
                         deplacement=deplacement).exists():
                     vehicule.disponibilite = False
                     vehicule.save()
+    for vehicule in vehicules:
+        if vehicule.carte_grise:
+            vehicule.date_limite_recepisse = None
+            vehicule.save()
 
     return {'demandes': demande, 'inciden': incidents, 'totals': totals, 'nombre_deplacement': nombre_deplacement,
             'nombre_deplacement_en_cours': nombre_deplacement_en_cours, 'nombre_prolongement': nombre_prolongement,
