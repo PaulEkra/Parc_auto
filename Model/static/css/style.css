@@ -197,11 +197,11 @@ a:hover { text-decoration: none; }
 /*---------------------------------------------------------------------
                                Sign In
 -----------------------------------------------------------------------*/
-.sign-in-detail { color: var(--iq-white); background: rgba(130, 122, 243, 1) !important; }
+.sign-in-detail { color: var(--iq-white); background: rgb(71 71 71 / 17%) !important }
 .sign-in-page { height: 100vh; }
 .sign-in-detail { padding: 100px; height: 100vh; }
 .sign-in-logo { display: inline-block; width: 100%; }
-.sign-in-logo img { height: 50px; }
+.sign-in-logo img { height: 150px; }
 .sign-in-from { padding: 0 60px; }
 .sign-info { border-top: 1px solid var(--iq-dark-border); margin-top: 30px; padding-top: 20px; }
 .iq-social-media { margin: 0; padding: 0; float: right; }

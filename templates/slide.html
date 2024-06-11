@@ -2,24 +2,29 @@
 <div class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
         <a href="{% url 'Accueil' %}">
-{#            <div class="iq-light-logo">#}
-{#                <div class="iq-light-logo">#}
-{#                    <img src="images/logo.gif" class="img-fluid" alt="">#}
-{#                </div>#}
-{#                <div class="iq-dark-logo">#}
-{#                    <img src="images/logo-dark.gif" class="img-fluid" alt="">#}
-{#                </div>#}
-{#            </div>#}
-            <span><strong style="font-size: 18px; color: #4b2db9; text-transform: capitalize">Espace gestionnaire</strong></span>
-        </a>
-{#        <div class="iq-menu-bt-sidebar">#}
-{#            <div class="iq-menu-bt align-self-center">#}
-{#                <div class="wrapper-menu">#}
-{#                    <div class="main-circle"><i class="ri-arrow-left-s-line"></i></div>#}
-{#                    <div class="hover-circle"><i class="ri-arrow-right-s-line"></i></div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+            <div class="iq-light-logo">
+                <div class="iq-light-logo">
+                    <img src="images/logo.gif" class="img-fluid" alt="">
+                </div>
+                <div class="iq-dark-logo">
+                    <img src="images/logo-dark.gif" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="iq-dark-logo">
+                <img src="images/logo-dark.gif" class="img-fluid" alt="">
+            </div>
+<div>
+    <a  class="sign-in-logo" style="" href="#"><img style="width: 140px; height:100px" src="{% static "images/logo-white.png" %}" alt="logo" class="img-fluid"></a>
+              <strong style="text-transform: uppercase; font-size:13px; color: rgba(6,18,89,0.9);padding-left: 10px">Espace Gestionnaire</strong>
+</div>
+        <div class="iq-menu-bt-sidebar">
+            <div class="iq-menu-bt align-self-center">
+                <div class="wrapper-menu">
+                    <div class="main-circle"><i class="ri-arrow-left-s-line"></i></div>
+                    <div class="hover-circle"><i class="ri-arrow-right-s-line"></i></div>
+                </div>
+            </div>
+        </div>
     </div>
 
             {% url 'vehicule:Ajouter_vehicule' as vehicule_Ajouter_vehicule_url %}
