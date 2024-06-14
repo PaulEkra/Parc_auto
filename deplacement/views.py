@@ -125,7 +125,7 @@ def liste_deplacement_en_cours(request):
     return render(request, 'afficher_deplacement_en_cours.html',
                   {'deplacements': deplacement, 'prolongement_encours': prolongement_encours_ids,
                    'prolongement_arrive': prolongement_arrive_ids, 'prolongement_accepte': prolongement_accepte_ids,
-                   'prolongements': prolongement, 'aujourd_hui': aujourd_hui,})
+                   'prolongements': prolongement, 'aujourd_hui': aujourd_hui, })
 
 
 @login_required(login_url='Connexion')
@@ -197,7 +197,7 @@ def modifier_deplacement_cours(request, pk):
         #     initial_data['photo_jauge_depart'] = deplacement.image_jauge
 
     return render(request, 'modifier_deplacement_cours.html',
-                  {'form': form, 'deplacement': deplacement, 'photos': photos})
+                  {'form': form, 'deplacement': deplacement, 'photos': photos, })
 
 
 @login_required(login_url='Connexion')
@@ -207,6 +207,8 @@ def modifier_deplacement(request, pk):
     deplacement = get_object_or_404(Deplacement, pk=pk)
     ancien_deplacement = get_object_or_404(Deplacement, pk=pk)
     photos = Photo.objects.filter(deplacement=pk)
+    img = Deplacement.objects.get(id=deplacement.id).photo_jauge_depart
+
     if request.method == 'POST':
         form = deplacementModifierForm(request.POST, request.FILES, instance=deplacement)
         if form.is_valid():
@@ -242,7 +244,7 @@ def modifier_deplacement(request, pk):
         # if deplacement.photo_jauge_depart:
         #     initial_data['photo_jauge_depart'] = deplacement.image_jauge
 
-    return render(request, 'modifier_deplacement.html', {'form': form, 'deplacement': deplacement, 'photos': photos})
+    return render(request, 'modifier_deplacement.html', {'form': form, 'deplacement': deplacement, 'photos': photos,'photo': img})
 
 
 @login_required(login_url='Connexion')
@@ -270,9 +272,9 @@ def delete_deplacement_cours(request, deplacement_id):
     if not request.user.roles or request.user.roles.role != 'GESTIONNAIRE':
         return redirect('utilisateur:erreur')
     deplacement = get_object_or_404(Deplacement, id=deplacement_id)
-    deplacement.conducteur.disponibilite =True
+    deplacement.conducteur.disponibilite = True
     deplacement.conducteur.save()
-    deplacement.vehicule.disponibilite =True
+    deplacement.vehicule.disponibilite = True
     deplacement.vehicule.save()
     image = Photo.objects.filter(deplacement=deplacement_id)
     image.delete()

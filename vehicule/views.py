@@ -117,7 +117,7 @@ def modifier_vehicule(request, pk):
         return redirect('utilisateur:erreur')
     vehicule = get_object_or_404(Vehicule, pk=pk)
     photos = Photo.objects.filter(vehicule=pk)
-
+    image_obj = Vehicule.objects.get(id=vehicule.id)
     if request.method == 'POST':
         form = VehiculeModifierForm(request.POST, request.FILES, instance=vehicule)
         if form.is_valid():
@@ -150,10 +150,11 @@ def modifier_vehicule(request, pk):
             'date_limite_certificatVignette': vehicule.date_limite_certificatVignette.strftime(
                 '%Y-%m-%d') if vehicule.date_limite_certificatVignette else None,
             'date_limite_taxe': vehicule.date_limite_taxe.strftime('%Y-%m-%d') if vehicule.date_limite_taxe else None,
-            'energie': vehicule.energie if vehicule.energie else None
+            'energie': vehicule.energie if vehicule.energie else None,
+            'image_rapport_identification': vehicule.image_assurance_carte_brune
         })
 
-    return render(request, 'modifier_vehicule.html', {'form': form, 'vehicule': vehicule, 'photos': photos})
+    return render(request, 'modifier_vehicule.html', {'form': form, 'vehicule': vehicule, 'photos': photos, 'photo':image_obj})
 
 
 @login_required(login_url='Connexion')

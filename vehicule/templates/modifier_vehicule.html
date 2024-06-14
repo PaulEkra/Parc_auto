@@ -1,95 +1,95 @@
 {% extends 'header.html' %}
 {% load static %}
 {% block content%}
-   <body>
-      <!-- loader Start -->
-      <div id="loading">
-         <div id="loading-center">
-         </div>
-      </div>
-      <!-- loader END -->
-      <!-- Wrapper Start -->
-      <div class="wrapper">
-         <!-- Sidebar  -->
-          {% include 'slide.html' %}
-         <!-- TOP Nav Bar -->
-          {% include 'top_navbar.html' %}
-         <!-- TOP Nav Bar END -->
-         <!-- Page Content  -->
-         <div id="content-page" class="content-page">
+    <body>
+    <!-- loader Start -->
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
+    <!-- loader END -->
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        {% include 'slide.html' %}
+        <!-- TOP Nav Bar -->
+        {% include 'top_navbar.html' %}
+        <!-- TOP Nav Bar END -->
+        <!-- Page Content  -->
+        <div id="content-page" class="content-page">
             <div class="container-fluid">
-               <div class="row d-flex justify-content-center">
-                  <div class="col-sm-12 col-lg-10  ">
-                     <div class="iq-card">
-                         <div class="card-header">
-                            <div class="iq-card-header d-flex justify-content-between">
-                               <div class="iq-header-title">
-                                  <h2 class="card-title">Modifier les informations de {{ vehicule.marque }}--{{ vehicule.numero_immatriculation }} <i class="ri-roadster-line"></i></h2>
-                               </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-12 col-lg-10  ">
+                        <div class="iq-card">
+                            <div class="card-header">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h2 class="card-title">Modifier les informations de {{ vehicule.marque }}--{{ vehicule.numero_immatriculation }} <i class="ri-roadster-line"></i></h2>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                        <div class="iq-card-body">
-                            <form class="form-horizontal" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
+                            <div class="iq-card-body">
+                                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
 
-                                <div class="row">
-                                    <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 col-lg-6">
 
-                                        <div class="form-group col-md-12 {% if form.numero_immatriculation.errors %}has-error{% endif %}">
-                                            <label for="numero_immatriculation" class="font-weight-bold">Numéro d'immatriculation :</label>
-                                            <input type="text" class="form-control" id="numero_immatriculation" placeholder="Exemple : 1046KB01" name="numero_immatriculation"  value="{% if form.numero_immatriculation.value %}{{ form.numero_immatriculation.value }}{% endif %}">
-                                            {% if form.numero_immatriculation.errors %}
-                                                <p class="help-block">{{ form.numero_immatriculation.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.numero_immatriculation.errors %}has-error{% endif %}">
+                                                <label for="numero_immatriculation" class="font-weight-bold">Numéro d'immatriculation :</label>
+                                                <input type="text" class="form-control" id="numero_immatriculation" placeholder="Exemple : 1046KB01" name="numero_immatriculation"  value="{% if form.numero_immatriculation.value %}{{ form.numero_immatriculation.value }}{% endif %}">
+                                                {% if form.numero_immatriculation.errors %}
+                                                    <p class="help-block">{{ form.numero_immatriculation.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}" id="carte_grise_group">
-                                            <label for="carte_grise" class="font-weight-bold">Numéro de la carte grise :</label>
-                                            <input type="text" class="form-control" id="carte_grise" placeholder="Exemple : CG30151017" name="carte_grise" value="{% if form.carte_grise.value %}{{ form.carte_grise.value }}{% endif %}">
-                                            {% if form.carte_grise.errors %}
-                                                <p class="help-block">{{ form.carte_grise.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}" id="carte_grise_group">
+                                                <label for="carte_grise" class="font-weight-bold">Numéro de la carte grise :</label>
+                                                <input type="text" class="form-control" id="carte_grise" placeholder="Exemple : CG30151017" name="carte_grise" value="{% if form.carte_grise.value %}{{ form.carte_grise.value }}{% endif %}">
+                                                {% if form.carte_grise.errors %}
+                                                    <p class="help-block">{{ form.carte_grise.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.couleur.errors %}has-error{% endif %}">
-                                            <label for="couleur" class="font-weight-bold">Couleur de la voiture :</label>
-                                            <input type="text" class="form-control" id="couleur" placeholder="Exemple : Noire" name="couleur" value="{% if form.couleur.value %}{{ form.couleur.value }}{% endif %}">
-                                            {% if form.couleur.errors %}
-                                                <p class="help-block">{{ form.couleur.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.couleur.errors %}has-error{% endif %}">
+                                                <label for="couleur" class="font-weight-bold">Couleur de la voiture :</label>
+                                                <input type="text" class="form-control" id="couleur" placeholder="Exemple : Noire" name="couleur" value="{% if form.couleur.value %}{{ form.couleur.value }}{% endif %}">
+                                                {% if form.couleur.errors %}
+                                                    <p class="help-block">{{ form.couleur.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.date_mise_circulation.errors %}has-error{% endif %}">
-                                            <label for="date_mise_circulation" class="font-weight-bold">Date de mise en circulation :</label>
-                                            <input type="date" class="form-control" id="date_mise_circulation" placeholder="date mise circulation" name="date_mise_circulation" value="{% if form.date_mise_circulation.value %}{{ form.date_mise_circulation.value }}{% endif %}">
-                                            {% if form.date_mise_circulation.errors %}
-                                                <p class="help-block">{{ form.date_mise_circulation.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.date_mise_circulation.errors %}has-error{% endif %}">
+                                                <label for="date_mise_circulation" class="font-weight-bold">Date de mise en circulation :</label>
+                                                <input type="date" class="form-control" id="date_mise_circulation" placeholder="date mise circulation" name="date_mise_circulation" value="{% if form.date_mise_circulation.value %}{{ form.date_mise_circulation.value }}{% endif %}">
+                                                {% if form.date_mise_circulation.errors %}
+                                                    <p class="help-block">{{ form.date_mise_circulation.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.numero_chassis.errors %}has-error{% endif %}">
-                                            <label for="numero_chassis" class="font-weight-bold">Numéro du VIN/Chassis :</label>
-                                            <input type="text" class="form-control" id="numero_chassis" placeholder="Exemple : JOUXTA2WLU001763" name="numero_chassis" value="{% if form.numero_chassis.value %}{{ form.numero_chassis.value }}{% endif %}">
-                                            {% if form.numero_chassis.errors %}
-                                                <p class="help-block">{{ form.numero_chassis.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.numero_chassis.errors %}has-error{% endif %}">
+                                                <label for="numero_chassis" class="font-weight-bold">Numéro du VIN/Chassis :</label>
+                                                <input type="text" class="form-control" id="numero_chassis" placeholder="Exemple : JOUXTA2WLU001763" name="numero_chassis" value="{% if form.numero_chassis.value %}{{ form.numero_chassis.value }}{% endif %}">
+                                                {% if form.numero_chassis.errors %}
+                                                    <p class="help-block">{{ form.numero_chassis.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.date_expiration_assurance.errors %}has-error{% endif %}">
-                                            <label for="date_expiration_assurance" class="font-weight-bold">Date d'expiration assurance :</label>
-                                            <input type="date" class="form-control" id="date_expiration_assurance" placeholder="Date expiration assurance" name="date_expiration_assurance" value="{% if form.date_expiration_assurance.value %}{{ form.date_expiration_assurance.value }}{% endif %}">
-                                            {% if form.date_expiration_assurance.errors %}
-                                                <p class="help-block">{{ form.date_expiration_assurance.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.date_expiration_assurance.errors %}has-error{% endif %}">
+                                                <label for="date_expiration_assurance" class="font-weight-bold">Date d'expiration assurance :</label>
+                                                <input type="date" class="form-control" id="date_expiration_assurance" placeholder="Date expiration assurance" name="date_expiration_assurance" value="{% if form.date_expiration_assurance.value %}{{ form.date_expiration_assurance.value }}{% endif %}">
+                                                {% if form.date_expiration_assurance.errors %}
+                                                    <p class="help-block">{{ form.date_expiration_assurance.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.taille_reservoir.errors %}has-error{% endif %}">
-                                            <label for="taille_reservoir" class="font-weight-bold">Taille du reservoir (Litres) :</label>
-                                            <input type="number" min="1" class="form-control" id="taille_reservoir" placeholder="Exemple : 60" name="taille_reservoir"  value="{% if form.taille_reservoir.value %}{{ form.taille_reservoir.value }}{% endif %}">
-                                            {% if form.taille_reservoir.errors %}
-                                                <p class="help-block">{{ form.taille_reservoir.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.taille_reservoir.errors %}has-error{% endif %}">
+                                                <label for="taille_reservoir" class="font-weight-bold">Taille du reservoir (Litres) :</label>
+                                                <input type="number" min="1" class="form-control" id="taille_reservoir" placeholder="Exemple : 60" name="taille_reservoir"  value="{% if form.taille_reservoir.value %}{{ form.taille_reservoir.value }}{% endif %}">
+                                                {% if form.taille_reservoir.errors %}
+                                                    <p class="help-block">{{ form.taille_reservoir.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
                                             <div class="form-group col-md-12 {% if form.date_limite_taxe.errors %}has-error{% endif %}">
                                                 <label for="date_limite_taxe" class="font-weight-bold">Date limite des taxes du district :</label>
@@ -108,9 +108,11 @@
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.image_rapport_identification.errors %}has-error{% endif %}">
-                                                <label for="image_rapport_identification" class="font-weight-bold">Sélectionner l'image du rapport d'identification :</label>
-                                                <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_rapport_identification" name="image_rapport_identification">
+                                                <label for="image_rapport_identification" class="font-weight-bold">Modifier l'image du rapport d'identification :</label>
+                                                <div class="form-control h-auto" style="border-radius: 10px; position: relative;">
+                                                    <input type="file" class="form-control-file" accept="image/*" id="image_rapport_identification" name="image_rapport_identification"
+                                                           style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_rapport_identification" for="image_rapport_identification">{{ photo.image_rapport_identification }}</label>
                                                 </div>
                                                 {% if form.image_rapport_identification.errors %}
                                                     <p class="help-block">Veuillez joindre une image</p>
@@ -118,123 +120,131 @@
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.image_attestation_assurance.errors %}has-error{% endif %}">
-                                                <label for="image_attestation_assurance" class="font-weight-bold">Sélectionner l'image de l'attestation d'assurance :</label>
+                                                <label for="image_attestation_assurance" class="font-weight-bold">Modifier l'image de l'attestation d'assurance :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_attestation_assurance" name="image_attestation_assurance">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_attestation_assurance" name="image_attestation_assurance"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_attestation_assurance" for="image_attestation_assurance">{{ photo.image_attestation_assurance }}</label>
                                                 </div>
                                                 {% if form.image_attestation_assurance.errors %}
                                                     <p class="help-block">Veuillez joindre une image</p>
                                                 {% endif %}
                                             </div>
 
-                                        <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}" id="carte_grise_recto">
-                                            <label for="image_recto" class="font-weight-bold">Modifier l'image recto de la carte grise :</label>
-                                            <div class="form-control h-auto" style="border-radius: 10px">
-                                                <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recto" name="image_recto">
+                                            <div class="form-group col-md-12 {% if form.image_recto.errors %}has-error{% endif %}" id="carte_grise_recto">
+                                                <label for="image_recto" class="font-weight-bold">Modifier l'image recto de la carte grise :</label>
+                                                <div class="form-control h-auto" style="border-radius: 10px">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recto" name="image_recto"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_image_recto" for="image_recto">{{ photo.image_recto }}</label>
+                                                </div>
+                                                {% if form.image_recto.errors %}
+
+                                                    <p class="help-block">Veuillez joindre une image</p>
+                                                {% endif %}
                                             </div>
-                                            {% if form.image_recto.errors %}
 
-                                                <p class="help-block">Veuillez joindre une image</p>
-                                            {% endif %}
-                                        </div>
-
-                                        <div class="form-group col-md-12 {% if form.images.errors %}has-error{% endif %}">
-                                            <label for="customFile" class="font-weight-bold">Sélectionner les images du véhicule :</label>
-                                            <div class="form-control h-auto" style="border-radius: 10px">
-                                                <input multiple  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="customFile" name="images">
+                                            <div class="form-group col-md-12 {% if form.images.errors %}has-error{% endif %}">
+                                                <label for="customFile" class="font-weight-bold">Modifier les images du véhicule :</label>
+                                                <div class="form-control h-auto" style="border-radius: 10px">
+                                                    <input multiple  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="customFile" name="images"
+                                                           style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_customFile" for="image_recto">{{ photos.count }} fichiers</label>
+                                                </div>
+                                                <small class="form-text text-muted">Vous ne pouvez sélectionner que 6 images maximum.</small>
+                                                {% if form.images.errors %}
+                                                    <p class="help-block">Veuillez joindre une image</p>
+                                                {% endif %}
+                                                {% if form.images.errors %}
+                                                    <p class="help-block">{{ form.images.errors.0 }}</p>
+                                                {% endif %}
                                             </div>
-                                            <small class="form-text text-muted">Vous ne pouvez sélectionner que 6 images maximum.</small>
-                                            {% if form.images.errors %}
-                                                <p class="help-block">Veuillez joindre une image</p>
-                                            {% endif %}
-                                            {% if form.images.errors %}
-                                                <p class="help-block">{{ form.images.errors.0 }}</p>
-                                            {% endif %}
+
                                         </div>
 
-                                    </div>
+                                        <div class="col-12 col-md-6 col-lg-6">
 
-                                    <div class="col-12 col-md-6 col-lg-6">
+                                            <div class="form-group col-md-12 {% if form.date_visite_technique.errors %}has-error{% endif %}">
+                                                <label for="date_visite_technique" class="font-weight-bold">Date de la prochaine visite technique :</label>
+                                                <input type="date" class="form-control" id="date_visite_technique" placeholder="Date prochaine visite technique" name="date_visite_technique" value="{% if form.date_visite_technique.value %}{{ form.date_visite_technique.value }}{% endif %}">
+                                                {% if form.date_visite_technique.errors %}
+                                                    <p class="help-block">{{ form.date_visite_technique.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.date_visite_technique.errors %}has-error{% endif %}">
-                                            <label for="date_visite_technique" class="font-weight-bold">Date de la prochaine visite technique :</label>
-                                            <input type="date" class="form-control" id="date_visite_technique" placeholder="Date prochaine visite technique" name="date_visite_technique" value="{% if form.date_visite_technique.value %}{{ form.date_visite_technique.value }}{% endif %}">
-                                            {% if form.date_visite_technique.errors %}
-                                                <p class="help-block">{{ form.date_visite_technique.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.carrosserie.errors %}has-error{% endif %}">
+                                                <label for="carrosserie" class="font-weight-bold">Carrosserie :</label>
+                                                <input type="text" class="form-control" id="carrosserie" placeholder="Exemple : Cond int 4 Pts" name="carrosserie" value="{% if form.carrosserie.value %}{{ form.carrosserie.value }}{% endif %}">
+                                                {% if form.carrosserie.errors %}
+                                                    <p class="help-block">{{ form.carrosserie.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.carrosserie.errors %}has-error{% endif %}">
-                                            <label for="carrosserie" class="font-weight-bold">Carrosserie :</label>
-                                            <input type="text" class="form-control" id="carrosserie" placeholder="Exemple : Cond int 4 Pts" name="carrosserie" value="{% if form.carrosserie.value %}{{ form.carrosserie.value }}{% endif %}">
-                                            {% if form.carrosserie.errors %}
-                                                <p class="help-block">{{ form.carrosserie.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.place_assises.errors %}has-error{% endif %}">
+                                                <label for="place_assises" class="font-weight-bold">Place assises :</label>
+                                                <input type="number" class="form-control" id="place_assises" placeholder="Exemple : 5" name="place_assises" value="{% if form.carte_grise.value %}{{ form.place_assises.value }}{% endif %}">
+                                                {% if form.place_assises.errors %}
+                                                    <p class="help-block">{{ form.place_assises.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.place_assises.errors %}has-error{% endif %}">
-                                            <label for="place_assises" class="font-weight-bold">Place assises :</label>
-                                            <input type="number" class="form-control" id="place_assises" placeholder="Exemple : 5" name="place_assises" value="{% if form.carte_grise.value %}{{ form.place_assises.value }}{% endif %}">
-                                            {% if form.place_assises.errors %}
-                                                <p class="help-block">{{ form.place_assises.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.kilometrage.errors %}has-error{% endif %}">
+                                                <label for="kilometrage" class="font-weight-bold">Kilométrage (Km/H) :</label>
+                                                <input type="number" class="form-control" id="kilometrage" placeholder="Exemple : 5000" name="kilometrage" value="{% if form.kilometrage.value %}{{ form.kilometrage.value }}{% endif %}">
+                                                {% if form.kilometrage.errors %}
+                                                    <p class="help-block">{{ form.kilometrage.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.kilometrage.errors %}has-error{% endif %}">
-                                            <label for="kilometrage" class="font-weight-bold">Kilométrage (Km/H) :</label>
-                                            <input type="number" class="form-control" id="kilometrage" placeholder="Exemple : 5000" name="kilometrage" value="{% if form.kilometrage.value %}{{ form.kilometrage.value }}{% endif %}">
-                                            {% if form.kilometrage.errors %}
-                                                <p class="help-block">{{ form.kilometrage.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.type_commercial.errors %}has-error{% endif %}">
 
-                                        <div class="form-group col-md-12 {% if form.type_commercial.errors %}has-error{% endif %}">
+                                                <label for="type_commercial" class="col-form-label">Type commercial :</label>
+                                                {{ form.type_commercial }}
+                                                {% if form.type_commercial.errors %}
+                                                    <p class="help-block">{{ form.type_commercial.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                            <label for="type_commercial" class="col-form-label">Type commercial :</label>
-                                            {{ form.type_commercial }}
-                                            {% if form.type_commercial.errors %}
-                                                <p class="help-block">{{ form.type_commercial.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.energie.errors %}has-error{% endif %}">
 
-                                        <div class="form-group col-md-12 {% if form.energie.errors %}has-error{% endif %}">
+                                                <label for="energie" class="font-weight-bold">Énergie :</label>
+                                                {{ form.energie }}
+                                                {% if form.energie.errors %}
+                                                    <p class="help-block">{{ form.energie.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                            <label for="energie" class="font-weight-bold">Énergie :</label>
-                                            {{ form.energie }}
-                                            {% if form.energie.errors %}
-                                                <p class="help-block">{{ form.energie.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.videnge.errors %}has-error{% endif %}">
+                                                <label for="videnge" class="font-weight-bold">Kilométrage avant vidange (Km/H) :</label>
 
-                                        <div class="form-group col-md-12 {% if form.videnge.errors %}has-error{% endif %}">
-                                            <label for="videnge" class="font-weight-bold">Kilométrage avant vidange (Km/H) :</label>
+                                                <input type="number" class="form-control" id="videnge" placeholder="Exemple : 5000" name="videnge" value="{% if form.videnge.value %}{{ form.videnge.value }}{% endif %}">
+                                                {% if form.videnge.errors %}
+                                                    <p class="help-block">{{ form.videnge.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                            <input type="number" class="form-control" id="videnge" placeholder="Exemple : 5000" name="videnge" value="{% if form.videnge.value %}{{ form.videnge.value }}{% endif %}">
-                                            {% if form.videnge.errors %}
-                                                <p class="help-block">{{ form.videnge.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.date_limite_assurance_carteBrune.errors %}has-error{% endif %}">
+                                                <label for="date_limite_assurance_carteBrune" class="font-weight-bold">Date limite de l'assurance carte brune :</label>
+                                                <input type="date" class="form-control" id="date_limite_assurance_carteBrune" placeholder="Date" name="date_limite_assurance_carteBrune" value="{% if form.date_limite_assurance_carteBrune.value %}{{ form.date_limite_assurance_carteBrune.value }}{% endif %}">
+                                                {% if form.date_limite_assurance_carteBrune.errors %}
+                                                    <p class="help-block">{{ form.date_limite_assurance_carteBrune.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
-                                        <div class="form-group col-md-12 {% if form.date_limite_assurance_carteBrune.errors %}has-error{% endif %}">
-                                            <label for="date_limite_assurance_carteBrune" class="font-weight-bold">Date limite de l'assurance carte brune :</label>
-                                            <input type="date" class="form-control" id="date_limite_assurance_carteBrune" placeholder="Date" name="date_limite_assurance_carteBrune" value="{% if form.date_limite_assurance_carteBrune.value %}{{ form.date_limite_assurance_carteBrune.value }}{% endif %}">
-                                            {% if form.date_limite_assurance_carteBrune.errors %}
-                                                <p class="help-block">{{ form.date_limite_assurance_carteBrune.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
-
-                                        <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recipisse-date">
-                                            <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
-                                            <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date" name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
-                                            {% if form.date_limite_recepisse.errors %}
-                                                <p class="help-block">{{ form.date_limite_recepisse.errors.0 }}</p>
-                                            {% endif %}
-                                        </div>
+                                            <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recipisse-date">
+                                                <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
+                                                <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date" name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
+                                                {% if form.date_limite_recepisse.errors %}
+                                                    <p class="help-block">{{ form.date_limite_recepisse.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
 
                                             <div class="form-group col-md-12 {% if form.image_taxe.errors %}has-error{% endif %}">
-                                                <label for="image_taxe" class="font-weight-bold">Sélectionner l'image des taxes du district :</label>
+                                                <label for="image_taxe" class="font-weight-bold">Modifier l'image des taxes du district :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_taxe" name="image_taxe">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_taxe" name="image_taxe"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_image_taxe" for="image_taxe">{{ photo.image_taxe }}</label>
                                                 </div>
                                                 {% if form.image_taxe.errors %}
                                                     <p class="help-block">Veuillez joindre une image</p>
@@ -242,9 +252,11 @@
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.image_recepisse.errors %}has-error{% endif %}" id="recepisse-img">
-                                                <label for="image_recepisse" class="font-weight-bold">Sélectionner l'image du recepisse d'immaticulation :</label>
+                                                <label for="image_recepisse" class="font-weight-bold">Modifier l'image du recepisse d'immaticulation :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recepisse" name="image_recepisse">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_recepisse" name="image_recepisse"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_image_recepisse" for="image_recepisse">{{ photo.image_recepisse }}</label>
                                                 </div>
                                                 {% if form.image_recepisse.errors %}
                                                     <p class="help-block">Veuillez joindre une image</p>
@@ -252,41 +264,45 @@
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.image_assurance_carte_brune.errors %}has-error{% endif %}">
-                                                    <label for="image_assurance_carte_brune" class="font-weight-bold">Sélectionner l'image de l'assurance carte brune :</label>
-                                                    <div class="form-control h-auto" style="border-radius: 10px">
-                                                        <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_assurance_carte_brune" name="image_assurance_carte_brune">
-                                                    </div>
-                                                    {% if form.image_assurance_carte_brune.errors %}
-                                                        <p class="help-block">Veuillez joindre une image</p>
-                                                    {% endif %}
+                                                <label for="image_assurance_carte_brune" class="font-weight-bold">Modifier l'image de l'assurance carte brune :</label>
+                                                <div class="form-control h-auto" style="border-radius: 10px">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_assurance_carte_brune" name="image_assurance_carte_brune"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_image_assurance_carte_brune" for="image_assurance_carte_brune">{{ photo.image_assurance_carte_brune }}</label>
+                                                </div>
+                                                {% if form.image_assurance_carte_brune.errors %}
+                                                    <p class="help-block">Veuillez joindre une image</p>
+                                                {% endif %}
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}" id="carte_grise_verso">
                                                 <label for="image_verso" class="font-weight-bold">Modifier l'image verso de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso"
+                                                            style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                                    <label id="fileName_image_verso" for="image_verso">{{ photo.image_verso }}</label>
                                                 </div>
                                                 {% if form.image_verso.errors %}
 
                                                     <p class="help-block">Veuillez joindre une image</p>
                                                 {% endif %}
                                             </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Modifier</button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%">Modifier</button>
+                                </form>
+                            </div>
+
                         </div>
-
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
+        </div>
+    </div>
 
-{#      Modal de demande #}
-      <div class="modal fade" id="carteGriseModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    {#      Modal de demande #}
+    <div class="modal fade" id="carteGriseModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -302,11 +318,11 @@
         </div>
     </div>
 
-      <!-- Wrapper END -->
-      <!-- Footer -->
-      {% include 'footer.html' %}
-   </body>
-     <script>
+    <!-- Wrapper END -->
+    <!-- Footer -->
+    {% include 'footer.html' %}
+    </body>
+    <script>
         // Bloquer le calendrier à la date du jour
         let today = new Date();
         let date = String(today.getDate()).padStart(2, '0');
@@ -324,23 +340,100 @@
         document.getElementById("date_limite_assurance_carteBrune").min = today;
 
 
-         $(document).ready(function() {
-             // Check if the carte grise input is empty
-             if (!$('#carte_grise').val()) {
-                 $('#carteGriseModal').modal('show');
-             }
-              $('#btnOui').click(function() {
+        $(document).ready(function() {
+            // Check if the carte grise input is empty
+            if (!$('#carte_grise').val()) {
+                $('#carteGriseModal').modal('show');
+            }
+            else {
+                $('#recipisse-date').attr('hidden', true);
+                $('#recepisse-img').attr('hidden', true);
+            }
+            $('#btnOui').click(function() {
                 $('#recipisse-date').attr('hidden', true);
                 $('#recepisse-img').attr('hidden', true);
                 $('#carteGriseModal').modal('hide');
             });
-              $('#btnNon').click(function() {
-                  $('#carte_grise_group').attr('hidden', true);
-                  $('#carte_grise_recto').attr('hidden', true);
-                  $('#carte_grise_verso').attr('hidden', true);
-                  $('#carteGriseModal').modal('hide');
+            $('#btnNon').click(function() {
+                $('#carte_grise_group').attr('hidden', true);
+                $('#carte_grise_recto').attr('hidden', true);
+                $('#carte_grise_verso').attr('hidden', true);
+                $('#carteGriseModal').modal('hide');
 
             });
-         })
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var image_rapport_identification = extractFileName("{{ photo.image_rapport_identification }}")
+            var image_attestation_assurance = extractFileName("{{ photo.image_attestation_assurance }}")
+            var image_recto = extractFileName("{{ photo.image_recto }}")
+            var image_taxe = extractFileName("{{ photo.image_taxe }}")
+            var image_recepisse = extractFileName("{{ photo.image_recepisse }}")
+            var image_assurance_carte_brune = extractFileName("{{ photo.image_assurance_carte_brune }}")
+            var image_verso = extractFileName("{{ photo.image_verso }}")
+            document.getElementById('fileName_rapport_identification').textContent =image_rapport_identification
+            document.getElementById('fileName_attestation_assurance').textContent =image_attestation_assurance
+            document.getElementById('fileName_image_recto').textContent =image_recto
+            document.getElementById('fileName_image_taxe').textContent =image_taxe
+            document.getElementById('fileName_image_recepisse').textContent =image_recepisse
+            document.getElementById('fileName_image_assurance_carte_brune').textContent =image_assurance_carte_brune
+            document.getElementById('fileName_image_verso').textContent =image_verso
+        });
+        document.getElementById('image_rapport_identification').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_rapport_identification');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_attestation_assurance').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_attestation_assurance');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_recto').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_image_recto');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_taxe').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_image_taxe');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_recepisse').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_image_recepisse');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_assurance_carte_brune').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_image_assurance_carte_brune');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('image_verso').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_image_verso');
+            const fileName = input.files.length > 0 ? input.files[0].name : "";
+            fileNameElement.textContent = fileName;
+        });
+        document.getElementById('customFile').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileNameElement = document.getElementById('fileName_customFile');
+            const fileName = input.files.length > 1 ? input.files.length + ' fichers'
+                    :input.files.length === 1
+                    ? input.files[0].name
+                    : "";
+            fileNameElement.textContent = fileName;
+        });
+
+        function extractFileName(path) {
+            return path.split('\\').pop().split('/').pop();
+        }
     </script>
 {% endblock %}

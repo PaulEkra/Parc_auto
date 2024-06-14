@@ -452,7 +452,7 @@ def envoyer_emails_certificatVignette_vehicules():
 #
 
 def start_scheduler():
-    target_hour = 10
+    target_hour = 00
     target_minute = 00
     while True:
         now = datetime.now()

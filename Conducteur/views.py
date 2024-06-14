@@ -44,7 +44,7 @@ def tous_les_conducteurs(request):
     utilisateurs = (
         Utilisateur.objects.exclude(conducteur_id__isnull=True).filter(is_active=True).annotate(
             hour=ExpressionWrapper(F('date_mise_a_jour'), output_field=fields.TimeField())).order_by('-hour')
-        )
+    )
 
     paginator = Paginator(utilisateurs, 15)
     try:
@@ -78,6 +78,7 @@ def modifier_conducteur(request, conducteur_id):
     global form
     conducteur = get_object_or_404(Conducteur, pk=conducteur_id)
     utilisateur = get_object_or_404(Utilisateur, conducteur=conducteur_id)
+    img = conducteur.image(id=conducteur.id)
     if request.method == 'POST':
         form_conducteur = ConducteurForm(request.POST, request.FILES, instance=conducteur)
         form_utilisateur = UserRegistrationFormee(request.POST, instance=utilisateur)
@@ -95,7 +96,7 @@ def modifier_conducteur(request, conducteur_id):
             'date_embauche': conducteur.date_embauche,
         })
     return render(request, 'modifier_conducteur.html',
-                  {'form': form, 'conducteur': conducteur, 'utilisateur': utilisateur})
+                  {'form': form, 'conducteur': conducteur, 'utilisateur': utilisateur, 'photo': img})
 
 
 @login_required(login_url='Connexion')
@@ -106,7 +107,7 @@ def conducteur_search(request):
     utilisateurs = (
         Utilisateur.objects.exclude(conducteur_id__isnull=True).filter(is_active=True).annotate(
             hour=ExpressionWrapper(F('date_mise_a_jour'), output_field=fields.TimeField())).order_by('-hour')
-        )
+    )
 
     if form.is_valid():
         query = form.cleaned_data.get('q')

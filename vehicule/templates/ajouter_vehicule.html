@@ -43,29 +43,43 @@
                                     {% csrf_token %}
 
                                     <div class="row">
-                                        <div class="col-12 col-md-6 col-lg-6">
+                                        <div class="form-group col-md-12 text-right">
+                                            <button type="button" class="iq-icons-list btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="ajoutType()" style="margin-right: 5px">
+                                                <i class="ion-plus-circled"></i>Ajouter un type commercial
+                                            </button>
+                                            <button type="button" class="iq-icons-list btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="ajoutMarque()">
+                                                <i class="ion-plus-circled"></i>Ajouter une marque
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="col-12 col-md-6 col-lg-6" id="step-1">
                                             <div class="col-md-12 {% if form.marque.errors %}has-error{% endif %}" style="margin-top: 15px">
-                                                <label for="marque" class="font-weight-bold" >Marque du véhicule :</label>
+                                                <label for="marque" class="font-weight-bold">Marque du véhicule :</label>
                                                 {{ form.marque }}
                                                 {% if form.marque.errors %}
                                                     <p class="help-block">{{ form.marque.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-marque"></p>
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.numero_immatriculation.errors %}has-error{% endif %}">
                                                 <label for="numero_immatriculation" class="font-weight-bold">Numéro d'immatriculation :</label>
-                                                <input type="text" class="form-control" id="numero_immatriculation" placeholder="Exemple : 1046KB01" name="numero_immatriculation"  value="{% if form.numero_immatriculation.value %}{{ form.numero_immatriculation.value }}{% endif %}">
+                                                <input type="text" class="form-control" id="numero_immatriculation" placeholder="Exemple : 1046KB01" name="numero_immatriculation" value="{% if form.numero_immatriculation.value %}{{ form.numero_immatriculation.value }}{% endif %}">
                                                 {% if form.numero_immatriculation.errors %}
                                                     <p class="help-block">{{ form.numero_immatriculation.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-numero_immatriculation"></p>
                                             </div>
+
                                             <div class="form-group col-md-12" id="select-doc">
-                                                <label for="carte_grise" class="font-weight-bold">???:</label>
-                                                <select id="document" name="carte_grise" class="form-control" required>
+                                                <label for="carte_grise" class="font-weight-bold">Type de document :</label>
+                                                <select id="document" name="document" class="form-control" required>
                                                     <option value="">Choisir un type de document</option>
                                                     <option value="carte_grise">Carte Grise</option>
                                                     <option value="recepisse">Récépissé</option>
                                                 </select>
+                                                <p class="help-block error-message" id="error-document"></p>
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.carte_grise.errors %}has-error{% endif %}" id="carte_grise_group" hidden="hidden">
@@ -74,6 +88,7 @@
                                                 {% if form.carte_grise.errors %}
                                                     <p class="help-block">{{ form.carte_grise.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-carte_grise"></p>
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.couleur.errors %}has-error{% endif %}">
@@ -82,15 +97,9 @@
                                                 {% if form.couleur.errors %}
                                                     <p class="help-block">{{ form.couleur.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-couleur"></p>
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.date_mise_circulation.errors %}has-error{% endif %}">
-                                                <label for="date_mise_circulation" class="font-weight-bold">Date de mise en circulation :</label>
-                                                <input type="date" class="form-control" id="date_mise_circulation" placeholder="date mise circulation" name="date_mise_circulation" value="{% if form.date_mise_circulation.value %}{{ form.date_mise_circulation.value }}{% endif %}">
-                                                {% if form.date_mise_circulation.errors %}
-                                                    <p class="help-block">{{ form.date_mise_circulation.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
 
                                             <div class="form-group col-md-12 {% if form.numero_chassis.errors %}has-error{% endif %}">
                                                 <label for="numero_chassis" class="font-weight-bold">Numéro du VIN/Chassis :</label>
@@ -98,23 +107,95 @@
                                                 {% if form.numero_chassis.errors %}
                                                     <p class="help-block">{{ form.numero_chassis.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-numero_chassis"></p>
                                             </div>
 
-                                            <div class="form-group col-md-12 {% if form.date_expiration_assurance.errors %}has-error{% endif %}">
-                                                <label for="date_expiration_assurance" class="font-weight-bold">Date d'expiration d'attestation d'assurance :</label>
-                                                <input type="date" class="form-control" id="date_expiration_assurance" placeholder="Date expiration assurance" name="date_expiration_assurance" value="{% if form.date_expiration_assurance.value %}{{ form.date_expiration_assurance.value }}{% endif %}">
-                                                {% if form.date_expiration_assurance.errors %}
-                                                    <p class="help-block">{{ form.date_expiration_assurance.errors.0 }}</p>
-                                                {% endif %}
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Suivant</button>
                                             </div>
+                                        </div>
 
+                                        <div id="step-2" class="col-12 col-md-6 col-lg-6" style="display: none;">
                                             <div class="form-group col-md-12 {% if form.taille_reservoir.errors %}has-error{% endif %}">
-                                                <label for="taille_reservoir" class="font-weight-bold">Taille du reservoir (Litres) :</label>
-                                                <input type="number" min="1" class="form-control" id="taille_reservoir" placeholder="Exemple : 60" name="taille_reservoir"  value="{% if form.taille_reservoir.value %}{{ form.taille_reservoir.value }}{% endif %}">
+                                                <label for="taille_reservoir" class="font-weight-bold">Taille du réservoir (Litres) :</label>
+                                                <input type="number" min="1" class="form-control" id="taille_reservoir" placeholder="Exemple : 60" name="taille_reservoir" value="{% if form.taille_reservoir.value %}{{ form.taille_reservoir.value }}{% endif %}">
                                                 {% if form.taille_reservoir.errors %}
                                                     <p class="help-block">{{ form.taille_reservoir.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-taille_reservoir"></p>
                                             </div>
+                                            <div class="form-group col-md-12 {% if form.carrosserie.errors %}has-error{% endif %}">
+                                                <label for="carrosserie" class="font-weight-bold">Carrosserie :</label>
+                                                <input type="text" class="form-control" id="carrosserie" placeholder="Exemple : Cond int 4 Pts" name="carrosserie" value="{% if form.carrosserie.value %}{{ form.carrosserie.value }}{% endif %}">
+                                                {% if form.carrosserie.errors %}
+                                                    <p class="help-block" >{{ form.carrosserie.errors.0 }}  </p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-carrosserie"></p>
+                                            </div>
+
+                                            <div class="form-group col-md-12 {% if form.place_assises.errors %}has-error{% endif %}">
+                                                <label for="place_assises" class="font-weight-bold">Place assises :</label>
+                                                <input type="number" class="form-control" id="place_assises" placeholder="Exemple : 5" name="place_assises" value="{% if form.carte_grise.value %}{{ form.place_assises.value }}{% endif %}">
+                                                {% if form.place_assises.errors %}
+                                                    <p class="help-block" >{{ form.place_assises.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-place_assises"> </p>
+                                            </div>
+
+                                            <div class="form-group col-md-12 {% if form.kilometrage.errors %}has-error{% endif %}">
+                                                <label for="kilometrage" class="font-weight-bold">Kilométrage (Km/H) :</label>
+                                                <input type="number" class="form-control" id="kilometrage" placeholder="Exemple : 5000" name="kilometrage" value="{% if form.kilometrage.value %}{{ form.kilometrage.value }}{% endif %}">
+                                                {% if form.kilometrage.errors %}
+                                                    <p class="help-block error-message" >{{ form.kilometrage.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-kilometrage"></p>
+
+                                            </div>
+
+                                            <div class="form-group col-md-12 {% if form.type_commercial.errors %}has-error{% endif %}">
+                                                <label for="type_commercial" class="col-form-label">Type commercial :</label>
+                                                {{ form.type_commercial }}
+                                                {% if form.type_commercial.errors %}
+                                                    <p class="help-block error-message">{{ form.type_commercial.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-type_commercial"></p>
+                                            </div>
+
+                                            <div class="form-group col-md-12 {% if form.energie.errors %}has-error{% endif %}">
+                                                <label for="energie" class="font-weight-bold">Énergie :</label>
+                                                {{ form.energie }}
+                                                {% if form.energie.errors %}
+                                                    <p class="help-block error-message" >{{ form.energie.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-energie"></p>
+
+                                            </div>
+
+                                            <div class="form-group col-md-12 {% if form.videnge.errors %}has-error{% endif %}">
+                                                <label for="videnge" class="font-weight-bold">Kilométrage avant vidange (Km/H) :</label>
+                                                <input type="number" class="form-control" id="videnge" placeholder="Exemple : 5000" name="videnge" value="{% if form.videnge.value %}{{ form.videnge.value }}{% endif %}">
+                                                {% if form.videnge.errors %}
+                                                    <p class="help-block error-message" >{{ form.videnge.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-videnge"></p>
+
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-primary float-left" onclick="prevStep(1)">Précédent</button>
+                                                <button type="button" class="btn btn-primary float-right" onclick="nextStep(3)">Suivant</button>
+                                            </div>
+
+                                        </div>
+                                        <div id="step-3" class="col-12 col-md-6 col-lg-6" style="display: none;">
+                                            <div class="form-group col-md-12 {% if form.date_mise_circulation.errors %}has-error{% endif %}">
+                                                <label for="date_mise_circulation" class="font-weight-bold">Date de mise en circulation :</label>
+                                                <input type="date" class="form-control" id="date_mise_circulation" placeholder="date mise circulation" name="date_mise_circulation" value="{% if form.date_mise_circulation.value %}{{ form.date_mise_circulation.value }}{% endif %}">
+                                                {% if form.date_mise_circulation.errors %}
+                                                    <p class="help-block">{{ form.date_mise_circulation.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-date_mise_circulation"></p>
+                                            </div>
+
 
                                             <div class="form-group col-md-12 {% if form.date_limite_taxe.errors %}has-error{% endif %}">
                                                 <label for="date_limite_taxe" class="font-weight-bold">Date limite des taxes du district :</label>
@@ -122,16 +203,57 @@
                                                 {% if form.date_limite_taxe.errors %}
                                                     <p class="help-block">{{ form.date_limite_taxe.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-date_limite_taxe"></p>
                                             </div>
 
                                             <div class="form-group col-md-12 {% if form.date_limite_certificatVignette.errors %}has-error{% endif %}">
-                                                <label for="date_limite_certificatVignette" class="font-weight-bold">Date limite du certificat provisiore de vignette :</label>
+                                                <label for="date_limite_certificatVignette" class="font-weight-bold">Date limite du certificat provisoire de vignette :</label>
                                                 <input type="date" class="form-control" id="date_limite_certificatVignette" placeholder="Date" name="date_limite_certificatVignette" value="{% if form.date_limite_certificatVignette.value %}{{ form.date_limite_certificatVignette.value }}{% endif %}">
                                                 {% if form.date_limite_certificatVignette.errors %}
                                                     <p class="help-block">{{ form.date_limite_certificatVignette.errors.0 }}</p>
                                                 {% endif %}
+                                                <p class="help-block error-message" id="error-date_limite_certificatVignette"></p>
+                                            </div>
+                                            <div class="form-group col-md-12 {% if form.date_visite_technique.errors %}has-error{% endif %}">
+                                                <label for="date_visite_technique" class="font-weight-bold">Date de la prochaine visite technique :</label>
+                                                <input type="date" class="form-control" id="date_visite_technique" placeholder="Date prochaine visite technique" name="date_visite_technique" value="{% if form.date_visite_technique.value %}{{ form.date_visite_technique.value }}{% endif %}">
+                                                {% if form.date_visite_technique.errors %}
+                                                    <p class="help-block error-message">{{ form.date_visite_technique.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-date_visite_technique"></p>
+                                            </div>
+                                            <div class="form-group col-md-12 {% if form.date_expiration_assurance.errors %}has-error{% endif %}">
+                                                <label for="date_expiration_assurance" class="font-weight-bold">Date d'expiration d'attestation d'assurance :</label>
+                                                <input type="date" class="form-control" id="date_expiration_assurance" placeholder="Date expiration assurance" name="date_expiration_assurance" value="{% if form.date_expiration_assurance.value %}{{ form.date_expiration_assurance.value }}{% endif %}">
+                                                {% if form.date_expiration_assurance.errors %}
+                                                    <p class="help-block">{{ form.date_expiration_assurance.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-date_expiration_assurance"></p>
+                                            </div>
+                                            <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recepisse" hidden="hidden">
+                                                <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
+                                                <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date " name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
+                                                {% if form.date_limite_recepisse.errors %}
+                                                    <p class="help-block error-message">{{ form.date_limite_recepisse.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-date_limite_recepisse"></p>
                                             </div>
 
+                                            <div class="form-group col-md-12 {% if form.date_limite_assurance_carteBrune.errors %}has-error{% endif %}">
+                                                <label for="date_limite_assurance_carteBrune" class="font-weight-bold">Date limite de l'assurance carte brune :</label>
+                                                <input type="date" class="form-control" id="date_limite_assurance_carteBrune" placeholder="Date prochaine visite technique" name="date_limite_assurance_carteBrune" value="{% if form.date_limite_assurance_carteBrune.value %}{{ form.date_limite_assurance_carteBrune.value }}{% endif %}">
+                                                {% if form.date_limite_assurance_carteBrune.errors %}
+                                                    <p class="help-block error-message" >{{ form.date_limite_assurance_carteBrune.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-date_limite_assurance_carteBrune"></p>
+                                            </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary float-right" onclick="nextStep(4)">Suivant</button>
+                                            <button type="button" class="btn btn-primary float-left" onclick="prevStep(2)">Précédent</button>
+                                        </div>
+                                        </div>
+
+                                        <div id="step-4" class="col-12 col-md-6 col-lg-6" style="display: none;">
                                             <div class="form-group col-md-12 {% if form.image_rapport_identification.errors %}has-error{% endif %}">
                                                 <label for="image_rapport_identification" class="font-weight-bold">Sélectionner l'image du rapport d'identification :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
@@ -171,89 +293,6 @@
                                                     <p class="help-block">Veuillez joindre une image</p>
                                                 {% endif %}
                                             </div>
-                                        </div>
-
-                                        <div class="col-12 col-md-6 col-lg-6">
-                                            <div class="form-group col-md-12 text-right">
-                                                <button type="button" class="iq-icons-list btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="ajoutType()" style="margin-right: 5px">
-                                                    <i class="ion-plus-circled"></i>Ajouter un type commercial
-                                                </button>
-                                                <button type="button" class="iq-icons-list btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="ajoutMarque()">
-                                                    <i class="ion-plus-circled"></i>Ajouter une marque
-                                                </button>
-                                            </div>
-                                            <div class="form-group col-md-12 {% if form.date_visite_technique.errors %}has-error{% endif %}">
-                                                <label for="date_visite_technique" class="font-weight-bold">Date de la prochaine visite technique :</label>
-                                                <input type="date" class="form-control" id="date_visite_technique" placeholder="Date prochaine visite technique" name="date_visite_technique" value="{% if form.date_visite_technique.value %}{{ form.date_visite_technique.value }}{% endif %}">
-                                                {% if form.date_visite_technique.errors %}
-                                                    <p class="help-block">{{ form.date_visite_technique.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.carrosserie.errors %}has-error{% endif %}">
-                                                <label for="carrosserie" class="font-weight-bold">Carrosserie :</label>
-                                                <input type="text" class="form-control" id="carrosserie" placeholder="Exemple : Cond int 4 Pts" name="carrosserie" value="{% if form.carrosserie.value %}{{ form.carrosserie.value }}{% endif %}">
-                                                {% if form.carrosserie.errors %}
-                                                    <p class="help-block">{{ form.carrosserie.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.place_assises.errors %}has-error{% endif %}">
-                                                <label for="place_assises" class="font-weight-bold">Place assises :</label>
-                                                <input type="number" class="form-control" id="place_assises" placeholder="Exemple : 5" name="place_assises" value="{% if form.carte_grise.value %}{{ form.place_assises.value }}{% endif %}">
-                                                {% if form.place_assises.errors %}
-                                                    <p class="help-block">{{ form.place_assises.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.kilometrage.errors %}has-error{% endif %}">
-                                                <label for="kilometrage" class="font-weight-bold">Kilométrage (Km/H) :</label>
-                                                <input type="number" class="form-control" id="kilometrage" placeholder="Exemple : 5000" name="kilometrage" value="{% if form.kilometrage.value %}{{ form.kilometrage.value }}{% endif %}">
-                                                {% if form.kilometrage.errors %}
-                                                    <p class="help-block">{{ form.kilometrage.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.type_commercial.errors %}has-error{% endif %}">
-                                                <label for="type_commercial" class="col-form-label">Type commercial :</label>
-                                                {{ form.type_commercial }}
-                                                {% if form.type_commercial.errors %}
-                                                    <p class="help-block">{{ form.type_commercial.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.energie.errors %}has-error{% endif %}">
-                                                <label for="energie" class="font-weight-bold">Énergie :</label>
-                                                {{ form.energie }}
-                                                {% if form.energie.errors %}
-                                                    <p class="help-block">{{ form.energie.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.videnge.errors %}has-error{% endif %}">
-                                                <label for="videnge" class="font-weight-bold">Kilométrage avant vidange (Km/H) :</label>
-                                                <input type="number" class="form-control" id="videnge" placeholder="Exemple : 5000" name="videnge" value="{% if form.videnge.value %}{{ form.videnge.value }}{% endif %}">
-                                                {% if form.videnge.errors %}
-                                                    <p class="help-block">{{ form.videnge.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}" id="recepisse" hidden="hidden">
-                                                <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
-                                                <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date " name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
-                                                {% if form.date_limite_recepisse.errors %}
-                                                    <p class="help-block">{{ form.date_limite_recepisse.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="form-group col-md-12 {% if form.date_limite_assurance_carteBrune.errors %}has-error{% endif %}">
-                                                <label for="date_limite_assurance_carteBrune" class="font-weight-bold">Date limite de l'assurance carte brune :</label>
-                                                <input type="date" class="form-control" id="date_limite_assurance_carteBrune" placeholder="Date prochaine visite technique" name="date_limite_assurance_carteBrune" value="{% if form.date_limite_assurance_carteBrune.value %}{{ form.date_limite_assurance_carteBrune.value }}{% endif %}">
-                                                {% if form.date_limite_assurance_carteBrune.errors %}
-                                                    <p class="help-block">{{ form.date_limite_assurance_carteBrune.errors.0 }}</p>
-                                                {% endif %}
-                                            </div>
-
                                             <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}" id="carte_grise_verso" hidden="hidden">
                                                 <label for="image_verso" class="font-weight-bold">Sélectionner l'image verso de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
@@ -298,9 +337,9 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <button type="submit" class="btn btn-primary" style="width: 100%">Ajouter</button>
+                                        <button type="submit" id="ajouter_btn" class="btn btn-primary" style="width: 100%; display: none">Ajouter</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -614,12 +653,12 @@
         document.addEventListener('DOMContentLoaded', function () {
             let fileInput = document.getElementById('customFile');
             fileInput.addEventListener('change', function (event) {
-            let selectedFiles = event.target.files;
-            let maxAllowedFiles = 6;
-            if (selectedFiles.length > maxAllowedFiles) {
-                $('#existImage').modal('show');
-                fileInput.value = '';
-            }
+                let selectedFiles = event.target.files;
+                let maxAllowedFiles = 6;
+                if (selectedFiles.length > maxAllowedFiles) {
+                    $('#existImage').modal('show');
+                    fileInput.value = '';
+                }
             });
         });
     </script>
@@ -684,19 +723,20 @@
     <script>
         $(document).ready(function() {
             $('#selectMarque').select2({
-                  width: '100%', // Définit la largeur à 100% pour s'adapter à la largeur parente
-                  dropdownAutoWidth: true, // Ajuste automatiquement la largeur du menu déroulant
-              })
+                width: '100%', // Définit la largeur à 100% pour s'adapter à la largeur parente
+                dropdownAutoWidth: true, // Ajuste automatiquement la largeur du menu déroulant
+            })
             $('#selectModel').select2({
-                  width: '100%', // Définit la largeur à 100% pour s'adapter à la largeur parente
-                  dropdownAutoWidth: true, // Ajuste automatiquement la largeur du menu déroulant
-              })
+                width: '100%', // Définit la largeur à 100% pour s'adapter à la largeur parente
+                dropdownAutoWidth: true, // Ajuste automatiquement la largeur du menu déroulant
+            })
             $('#marque2').select2();
         });
     </script>
 
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
+
             var selectType = document.getElementById('document');
             $('#document').change(function () {
                 var document = $(this).val();
@@ -719,6 +759,228 @@
         });
 
 
+
+    </script>
+    <script>
+        function valideStep(step) {
+            let isValid = true;
+
+            // Step 1 Validation
+            if (step === 1) {
+                let marque = document.getElementById('selectMarque').value;
+                let numero_immatriculation = document.getElementById('numero_immatriculation').value;
+                let documentType = document.getElementById('document').value;
+                let carte_grise = document.getElementById('carte_grise').value;
+                let couleur = document.getElementById('couleur').value;
+                let numero_chassis = document.getElementById('numero_chassis').value;
+
+
+                if (marque === "") {
+                    isValid = false;
+                    document.getElementById('error-marque').innerText = "Veuillez sélectionner une marque.";
+                } else {
+                    document.getElementById('error-marque').innerText = "";
+                }
+
+                if (numero_immatriculation === "") {
+                    isValid = false;
+                    document.getElementById('error-numero_immatriculation').innerText = "Veuillez entrer un numéro d'immatriculation.";
+                } else {
+                    document.getElementById('error-numero_immatriculation').innerText = "";
+                }
+
+                if (documentType === "") {
+                    isValid = false;
+                    document.getElementById('error-document').innerText = "Veuillez sélectionner un type de document.";
+                } else {
+                    document.getElementById('error-document').innerText = "";
+                }
+
+                if (documentType === "carte_grise" && carte_grise === "") {
+                    isValid = false;
+                    document.getElementById('error-carte_grise').innerText = "Veuillez entrer un numéro de carte grise.";
+                } else {
+                    document.getElementById('error-carte_grise').innerText = "";
+                }
+
+                if (couleur === "") {
+                    isValid = false;
+                    document.getElementById('error-couleur').innerText = "Veuillez entrer une couleur.";
+                } else {
+                    document.getElementById('error-couleur').innerText = "";
+                }
+
+
+
+                if (numero_chassis === "") {
+                    isValid = false;
+                    document.getElementById('error-numero_chassis').innerText = "Veuillez entrer un numéro de VIN/Chassis.";
+                } else {
+                    document.getElementById('error-numero_chassis').innerText = "";
+                }
+
+
+
+
+
+            }
+            if (step === 2){
+                let carrosserie = document.getElementById('carrosserie').value;
+                let place_assises = document.getElementById('place_assises').value;
+                let kilometrage = document.getElementById('kilometrage').value;
+                let type_commercial = document.getElementById('selectModel').value;
+                let energie = document.getElementById('energie').value;
+                let videnge = document.getElementById('videnge').value;
+                let taille_reservoir = document.getElementById('taille_reservoir').value;
+                if (carrosserie === "") {
+                    isValid = false;
+                    document.getElementById('error-carrosserie').innerText = "Veuillez entrer une carrosserie.";
+                } else {
+                    document.getElementById('error-carrosserie').innerText = "";
+                }
+
+                if (place_assises === "" || place_assises <= 0) {
+                    isValid = false;
+                    document.getElementById('error-place_assises').innerText = "Veuillez entrer un nombre de places assises valide.";
+                } else {
+                    document.getElementById('error-place_assises').innerText = "";
+                }
+
+                if (kilometrage === "" || kilometrage <= 0) {
+                    isValid = false;
+                    document.getElementById('error-kilometrage').innerText = "Veuillez entrer un kilométrage valide.";
+                } else {
+                    document.getElementById('error-kilometrage').innerText = "";
+                }
+
+                if (type_commercial === "") {
+                    isValid = false;
+                    document.getElementById('error-type_commercial').innerText = "Veuillez sélectionner un type commercial.";
+                } else {
+                    document.getElementById('error-type_commercial').innerText = "";
+                }
+
+                if (energie === "") {
+                    isValid = false;
+                    document.getElementById('error-energie').innerText = "Veuillez sélectionner une énergie.";
+                } else {
+                    document.getElementById('error-energie').innerText = "";
+                }
+
+                if (videnge === "" || videnge <= 0) {
+                    isValid = false;
+                    document.getElementById('error-videnge').innerText = "Veuillez entrer un kilométrage avant vidange valide.";
+                } else {
+                    document.getElementById('error-videnge').innerText = "";
+                }
+                if (taille_reservoir === "" || taille_reservoir <= 0) {
+                    isValid = false;
+                    document.getElementById('error-taille_reservoir').innerText = "Veuillez entrer une taille de réservoir valide.";
+                } else {
+                    document.getElementById('error-taille_reservoir').innerText = "";
+                }
+
+
+            }
+
+            // Step 2 Validation
+            if (step === 3) {
+                let date_visite_technique = document.getElementById('date_visite_technique').value;
+                let date_mise_circulation = document.getElementById('date_mise_circulation').value;
+                let date_limite_recepisse = document.getElementById('date_limite_recepisse').value;
+                let date_limite_assurance_carteBrune = document.getElementById('date_limite_assurance_carteBrune').value;
+                let date_expiration_assurance = document.getElementById('date_expiration_assurance').value;
+                let date_limite_taxe = document.getElementById('date_limite_taxe').value;
+                let date_limite_certificatVignette = document.getElementById('date_limite_certificatVignette').value;
+                if (date_visite_technique === "") {
+                    isValid = false;
+                    document.getElementById('error-date_visite_technique').innerText = "Veuillez entrer une date de visite technique.";
+                } else {
+                    document.getElementById('error-date_visite_technique').innerText = "";
+                }
+                if (date_mise_circulation === "") {
+                    isValid = false;
+                    document.getElementById('error-date_mise_circulation').innerText = "Veuillez entrer une date de mise en circulation.";
+                } else {
+                    document.getElementById('error-date_mise_circulation').innerText = "";
+                }
+                if (date_limite_assurance_carteBrune === "") {
+                    isValid = false;
+                    document.getElementById('error-date_limite_assurance_carteBrune').innerText = "Veuillez entrer une date limite de l'assurance carte brune.";
+                } else {
+                    document.getElementById('error-date_limite_assurance_carteBrune').innerText = "";
+                }
+                if (document.getElementById('recepisse').style.display !== 'none' && date_limite_recepisse === "") {
+                    isValid = false;
+                    document.getElementById('error-date_limite_recepisse').innerText = "Veuillez entrer une date limite de récépissé.";
+                } else {
+                    document.getElementById('error-date_limite_recepisse').innerText = "";
+                }
+                if (date_expiration_assurance === "") {
+                    isValid = false;
+                    document.getElementById('error-date_expiration_assurance').innerText = "Veuillez entrer une date d'expiration d'assurance.";
+                } else {
+                    document.getElementById('error-date_expiration_assurance').innerText = "";
+                }
+
+                if (date_limite_taxe === "") {
+                    isValid = false;
+                    document.getElementById('error-date_limite_taxe').innerText = "Veuillez entrer une date limite de taxe.";
+                } else {
+                    document.getElementById('error-date_limite_taxe').innerText = "";
+                }
+
+                if (date_limite_certificatVignette === "") {
+                    isValid = false;
+                    document.getElementById('error-date_limite_certificatVignette').innerText = "Veuillez entrer une date limite du certificat provisoire de vignette.";
+                } else {
+                    document.getElementById('error-date_limite_certificatVignette').innerText = "";
+                }
+
+            }
+
+            return isValid;
+        }
+
+        function nextStep(stepNumber) {
+            if (valideStep(stepNumber - 1)) {
+                document.getElementById('step-' + (stepNumber - 1)).style.display = 'none';
+                document.getElementById('step-' + stepNumber).style.display = 'block';
+            }
+            if (valideStep(stepNumber - 1) && stepNumber === 4) {
+                updateRequiredStatus()
+                document.getElementById('ajouter_btn').style.display = 'block';
+            }
+        }
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById('step-' + (step + 1)).style.display = 'none';
+
+            // Show next step
+            document.getElementById('step-' + step).style.display = 'block';
+            document.getElementById('ajouter_btn').style.display = 'none';
+        }
+
+
+        function updateRequiredStatus() {
+        // Récupérer tous les champs input concernés
+        var inputFields = document.querySelectorAll('#step-4 input[type="file"]');
+
+        // Parcourir chaque champ input
+        inputFields.forEach(function(input) {
+            // Récupérer le div parent
+            var parentDiv = input.closest('.form-group');
+
+            // Vérifier si le div parent a l'attribut hidden
+            if (parentDiv && parentDiv.hasAttribute('hidden')) {
+                // Si caché, retirer l'attribut required s'il existe
+                input.removeAttribute('required');
+            } else {
+                // Si non caché, ajouter l'attribut required
+                input.setAttribute('required', '');
+            }
+        });
+    }
 
     </script>
 
