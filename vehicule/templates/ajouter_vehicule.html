@@ -75,7 +75,7 @@
                                             <div class="form-group col-md-12" id="select-doc">
                                                 <label for="carte_grise" class="font-weight-bold">Type de document :</label>
                                                 <select id="document" name="document" class="form-control" required>
-                                                    <option value="">Choisir un type de document</option>
+                                                    <option value=""></option>
                                                     <option value="carte_grise">Carte Grise</option>
                                                     <option value="recepisse">Récépissé</option>
                                                 </select>
@@ -247,10 +247,10 @@
                                                 {% endif %}
                                                 <p class="help-block error-message" id="error-date_limite_assurance_carteBrune"></p>
                                             </div>
-                                        <div>
-                                            <button type="button" class="btn btn-primary float-right" onclick="nextStep(4)">Suivant</button>
-                                            <button type="button" class="btn btn-primary float-left" onclick="prevStep(2)">Précédent</button>
-                                        </div>
+                                            <div>
+                                                <button type="button" class="btn btn-primary float-right" onclick="nextStep(4)">Suivant</button>
+                                                <button type="button" class="btn btn-primary float-left" onclick="prevStep(2)">Précédent</button>
+                                            </div>
                                         </div>
 
                                         <div id="step-4" class="col-12 col-md-6 col-lg-6" style="display: none;">
@@ -963,24 +963,24 @@
 
 
         function updateRequiredStatus() {
-        // Récupérer tous les champs input concernés
-        var inputFields = document.querySelectorAll('#step-4 input[type="file"]');
+            // Récupérer tous les champs input concernés
+            var inputFields = document.querySelectorAll('#step-4 input[type="file"]');
 
-        // Parcourir chaque champ input
-        inputFields.forEach(function(input) {
-            // Récupérer le div parent
-            var parentDiv = input.closest('.form-group');
+            // Parcourir chaque champ input
+            inputFields.forEach(function(input) {
+                // Récupérer le div parent
+                var parentDiv = input.closest('.form-group');
 
-            // Vérifier si le div parent a l'attribut hidden
-            if (parentDiv && parentDiv.hasAttribute('hidden')) {
-                // Si caché, retirer l'attribut required s'il existe
-                input.removeAttribute('required');
-            } else {
-                // Si non caché, ajouter l'attribut required
-                input.setAttribute('required', '');
-            }
-        });
-    }
+                // Vérifier si le div parent a l'attribut hidden
+                if (parentDiv && parentDiv.hasAttribute('hidden')) {
+                    // Si caché, retirer l'attribut required s'il existe
+                    input.removeAttribute('required');
+                } else {
+                    // Si non caché, ajouter l'attribut required
+                    input.setAttribute('required', '');
+                }
+            });
+        }
 
     </script>
 

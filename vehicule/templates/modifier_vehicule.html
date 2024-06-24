@@ -426,7 +426,7 @@
             const input = event.target;
             const fileNameElement = document.getElementById('fileName_customFile');
             const fileName = input.files.length > 1 ? input.files.length + ' fichers'
-                    :input.files.length === 1
+                :input.files.length === 1
                     ? input.files[0].name
                     : "";
             fileNameElement.textContent = fileName;

@@ -79,7 +79,7 @@ def vehicul_search(request):
         query = form.cleaned_data.get('q')
         if query:
             vehicules = vehicules.filter(Q(marque__marque__icontains=query) |
-                                              Q(numero_immatriculation__icontains=query))
+                                         Q(numero_immatriculation__icontains=query))
         else:
             vehicules = vehicules
 
