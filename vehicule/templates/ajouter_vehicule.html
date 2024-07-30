@@ -109,6 +109,14 @@
                                                 {% endif %}
                                                 <p class="help-block error-message" id="error-numero_chassis"></p>
                                             </div>
+                                            <div class="form-group col-md-12 {% if form.litre.errors %}has-error{% endif %}">
+                                                <label for="litre" class="font-weight-bold">LITRE/KM :</label>
+                                                <input type="number" class="form-control" id="litre" placeholder="Exemple : 1" name="litre" value="{% if form.litre.value %}{{ form.litre.value }}{% endif %}">
+                                                {% if form.litre.errors %}
+                                                    <p class="help-block">{{ form.litre.errors.0 }}</p>
+                                                {% endif %}
+                                                <p class="help-block error-message" id="error-litre"></p>
+                                            </div>
 
                                             <div class="text-center">
                                                 <button type="button" class="btn btn-primary" onclick="nextStep(2)">Suivant</button>
@@ -773,6 +781,7 @@
                 let carte_grise = document.getElementById('carte_grise').value;
                 let couleur = document.getElementById('couleur').value;
                 let numero_chassis = document.getElementById('numero_chassis').value;
+                let litre = document.getElementById('litre').value;
 
 
                 if (marque === "") {
@@ -817,6 +826,13 @@
                     document.getElementById('error-numero_chassis').innerText = "Veuillez entrer un numéro de VIN/Chassis.";
                 } else {
                     document.getElementById('error-numero_chassis').innerText = "";
+                }
+
+                if (litre === "") {
+                    isValid = false;
+                    document.getElementById('error-litre').innerText = "Veuillez entrer une valeur.";
+                } else {
+                    document.getElementById('error-litre').innerText = "";
                 }
 
 
@@ -891,6 +907,7 @@
                 let date_limite_assurance_carteBrune = document.getElementById('date_limite_assurance_carteBrune').value;
                 let date_expiration_assurance = document.getElementById('date_expiration_assurance').value;
                 let date_limite_taxe = document.getElementById('date_limite_taxe').value;
+                let documentType = document.getElementById('document').value;
                 let date_limite_certificatVignette = document.getElementById('date_limite_certificatVignette').value;
                 if (date_visite_technique === "") {
                     isValid = false;
@@ -910,7 +927,7 @@
                 } else {
                     document.getElementById('error-date_limite_assurance_carteBrune').innerText = "";
                 }
-                if (document.getElementById('recepisse').style.display !== 'none' && date_limite_recepisse === "") {
+                if (documentType === "recipisse" && date_limite_recepisse === "") {
                     isValid = false;
                     document.getElementById('error-date_limite_recepisse').innerText = "Veuillez entrer une date limite de récépissé.";
                 } else {

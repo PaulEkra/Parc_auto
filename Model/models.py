@@ -273,6 +273,7 @@ class Vehicule(models.Model):
     date_limite_assurance_carteBrune = models.DateField(blank=True, null=True)
     date_limite_taxe = models.DateField(blank=True, null=True)
     date_limite_certificatVignette = models.DateField(blank=True, null=True)
+    litre = models.FloatField(default=0)
 
     def __str__(self):
         return f"{self.marque} {self.type_commercial} {self.numero_immatriculation}"

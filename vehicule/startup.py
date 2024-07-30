@@ -5,7 +5,6 @@ from django.conf import settings
 from django.db.models import F
 
 from Model.models import Vehicule
-from twilio.rest import Client
 
 
 def envoyer_emails_assurance_vehicules():

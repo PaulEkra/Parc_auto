@@ -115,7 +115,11 @@ class VehiculeForm(forms.ModelForm):
             'class': "form-control",
             'id': "numero_chassis",
             'required': True,
-
+        })
+        self.fields['litre'].widget.attrs.update({
+            'class': "form-control",
+            'id': "litre",
+            'required': True,
         })
 
         self.fields['date_expiration_assurance'].widget.attrs.update({
