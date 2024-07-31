@@ -27,16 +27,10 @@ def enregistrer_deplacement(request):
 
             deplacement.utilisateur = request.user
 
-            # Obtenez l'instance du véhicule associé à ce déplacement (hypothétique)
-            vehicule = deplacement.vehicule
-
-            # Obtenez l'instance du conducteur associé à ce déplacement (hypothétique)
-            conducteur = deplacement.conducteur
-
+            deplacement.kilometrage_depart = deplacement.vehicule.kilometrage
             photo_jauge_depart = request.FILES.get('photo_jauge_depart')
             if photo_jauge_depart:
                 deplacement.photo_jauge_depart = photo_jauge_depart
-            vehicule.save()
             deplacement.save()
             images = request.FILES.getlist('images')
             if len(images) <= 6:

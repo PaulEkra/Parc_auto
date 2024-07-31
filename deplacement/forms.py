@@ -41,6 +41,19 @@ class DeplacementForm(forms.ModelForm):
             'id': "selectConducteur",
             'required': True,
         })
+        self.fields['lieu_depart'].widget.attrs.update({
+            'class': "form-control",
+            'id': "lieu_depart",
+        })
+        self.fields['lieu_arrive'].widget.attrs.update({
+            'class': "form-control",
+            'id': "lieu_arrive",
+        })
+        self.fields['distance'].widget.attrs.update({
+            'class': "form-control",
+            'id': "distance",
+        })
+
 
         # Exclure les conducteurs non disponibles
 
