@@ -393,9 +393,10 @@
                         if (status === 'OK') {
                             var results = response.rows[0].elements;
                             var distanceInMeters = results[0].distance.value;
-                            var distanceInKilometers = Math.round(distanceInMeters / 1000); // Convert meters to kilometers and round to the nearest integer
+                            var distanceInKilometers = Math.round(distanceInMeters / 1000) *2; // Convert meters to kilometers and round to the nearest integer
                             var distanceInput = document.getElementById('distance');
-                            distanceInput.value = distanceInKilometers;
+                            distanceInput.value = distanceInKilometers ;
+
                         } else {
                             alert('Distance Matrix request failed due to ' + status);
                         }

@@ -112,6 +112,18 @@
                                             <td class="center-text">{{ deplacement.description }}</td>
                                         </tr>
                                         <tr>
+                                            <td><strong>LIEU DE DEPART :</strong></td>
+                                            <td class="center-text">{{ deplacement.lieu_depart }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>LIEU D'ARRIVEE :</strong></td>
+                                            <td class="center-text">{{ deplacement.lieu_arrive }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>DISTANCE :</strong></td>
+                                            <td class="center-text">{{ deplacement.distance }} Km</td>
+                                        </tr>
+                                        <tr>
                                             <td><strong>DURÉE DU DÉPLACEMENT :</strong></td>
                                             <td class="center-text">{% if deplacement.duree_deplacement > 1 %} {{ deplacement.duree_deplacement }} jours {% else %} {{ deplacement.duree_deplacement }} jour {% endif %}</td>
                                         </tr>

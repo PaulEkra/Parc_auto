@@ -64,18 +64,36 @@
                                         </div>
                                     </div>
 
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-2 align-self-center mb-0" for="description">Description:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="description" name="description" value="{{ form.description.value }}">
-                                            </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="description">Description:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="description" name="description" value="{{ form.description.value }}">
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_depart">Lieu de Depart:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" required  class="form-control" id="lieu_depart"  name="lieu_depart" value="{{ form.lieu_depart.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_arrive">Lieu d'arrivé:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" required  class="form-control" id="lieu_arrive"  name="lieu_arrive" value="{{ form.lieu_arrive.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="distance">Distance:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="distance" name="distance" readonly value="{{ form.distance.value }}">
+                                        </div>
+                                    </div>
                                     <div class="form-group row" style="margin-top: 33px">
                                         <label class="control-label col-sm-2 align-self-center mb-0" for="email" style="margin-right: 15px">Modifier les images :</label>
                                         <div class="form-control col-sm-9" style="border-radius: 10px; padding-bottom: 35px">
                                             <input multiple placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="customFile" name="images"
-                                                    style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
-                                                    <label id="fileName_customFile" for="image_recto">{{ photos.count }} fichiers</label>
+                                                   style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                            <label id="fileName_customFile" for="image_recto">{{ photos.count }} fichiers</label>
                                         </div>
                                     </div>
 
@@ -83,8 +101,8 @@
                                         <label class="control-label col-sm-2 align-self-center mb-0" for="email" style="margin-right: 20px">Modifier la jauge :</label>
                                         <div class="form-control col-sm-9" style="border-radius: 10px; padding-bottom: 35px">
                                             <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="photo_jauge_depart" name="photo_jauge_depart"
-                                                      style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
-                                                    <label id="fileName_photo_jauge_depart" for="photo_jauge_depart">{{ photo }}</label>
+                                                    style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                            <label id="fileName_photo_jauge_depart" for="photo_jauge_depart">{{ photo }}</label>
                                         </div>
                                         {% if form.photo_jauge_depart.errors %}
                                             <p class="help-block">Veuillez joindre une image</p>
@@ -190,7 +208,7 @@
     </script>
 
 
-     <script>
+    <script>
         $(document).ready(function() {
             $('#selectConducteur').change(function() {
                 var selectedConducteurId = $(this).val();
@@ -289,11 +307,11 @@
         })
     </script>
     <script>
-         document.getElementById('customFile').addEventListener('change', function(event) {
+        document.getElementById('customFile').addEventListener('change', function(event) {
             const input = event.target;
             const fileNameElement = document.getElementById('fileName_customFile');
             const fileName = input.files.length > 1 ? input.files.length + ' fichers'
-                    :input.files.length === 1
+                :input.files.length === 1
                     ? input.files[0].name
                     : "";
             fileNameElement.textContent = fileName;
@@ -303,16 +321,78 @@
             return path.split('\\').pop().split('/').pop();
         }
 
-         document.getElementById('photo_jauge_depart').addEventListener('change', function(event) {
+        document.getElementById('photo_jauge_depart').addEventListener('change', function(event) {
             const input = event.target;
             const fileNameElement = document.getElementById('fileName_photo_jauge_depart');
             const fileName = input.files.length > 0 ? input.files[0].name : "";
             fileNameElement.textContent = fileName;
         });
-         document.addEventListener('DOMContentLoaded', function() {
-             var photo_jauge_depart= extractFileName("{{ photo }}")
-             document.getElementById('fileName_photo_jauge_depart').textContent = photo_jauge_depart;
-         })
+        document.addEventListener('DOMContentLoaded', function() {
+            var photo_jauge_depart= extractFileName("{{ photo }}")
+            document.getElementById('fileName_photo_jauge_depart').textContent = photo_jauge_depart;
+        })
+    </script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADMvHCa_el49NoS1cnqr_iFR5ZypOKtk8&libraries=places" async defer></script>
+    <script>
+        function initAutocomplete() {
+            const autocomplete_arrive = new google.maps.places.Autocomplete(
+                document.getElementById('lieu_arrive'),
+                {
+                    componentRestrictions: { country: 'ci' } // Limiter les résultats à un pays (Côte d'Ivoire dans cet exemple)
+                }
+            );
+            const autocomplete_depart = new google.maps.places.Autocomplete(
+                document.getElementById('lieu_depart'),
+                {
+                    componentRestrictions: { country: 'ci' } // Limiter les résultats à un pays (Côte d'Ivoire dans cet exemple)
+                }
+            );
+
+            autocomplete_arrive.addListener('place_changed', function() {
+                const place = autocomplete_arrive.getPlace();
+                if (place.geometry) {
+                    calculateDistance();
+                }
+            });
+            autocomplete_depart.addListener('place_changed', function() {
+                const place = autocomplete_depart.getPlace();
+                if (place.geometry) {
+                    calculateDistance();
+                }
+            });
+        }
+
+        function calculateDistance() {
+            var service = new google.maps.DistanceMatrixService();
+            var origin = document.getElementById('lieu_depart').value;
+            var destination = document.getElementById('lieu_arrive').value;
+
+            if (origin && destination) {
+                service.getDistanceMatrix(
+                    {
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: 'DRIVING',
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        avoidHighways: false,
+                        avoidTolls: false,
+                    },
+                    function(response, status) {
+                        if (status === 'OK') {
+                            var results = response.rows[0].elements;
+                            var distanceInMeters = results[0].distance.value;
+                            var distanceInKilometers = Math.round(distanceInMeters / 1000)*2; // Convert meters to kilometers and round to the nearest integer
+                            var distanceInput = document.getElementById('distance');
+                            distanceInput.value = distanceInKilometers;
+                        } else {
+                            alert('Distance Matrix request failed due to ' + status);
+                        }
+                    }
+                );
+            }
+        }
+
+        window.onload = initAutocomplete;
     </script>
     </body>
 {% endblock %}

@@ -188,6 +188,7 @@
                                                 <p class="help-block error-message" id="error-videnge"></p>
 
                                             </div>
+
                                             <div>
                                                 <button type="button" class="btn btn-primary float-left" onclick="prevStep(1)">Précédent</button>
                                                 <button type="button" class="btn btn-primary float-right" onclick="nextStep(3)">Suivant</button>
@@ -827,7 +828,6 @@
                 } else {
                     document.getElementById('error-numero_chassis').innerText = "";
                 }
-
                 if (litre === "") {
                     isValid = false;
                     document.getElementById('error-litre').innerText = "Veuillez entrer une valeur.";

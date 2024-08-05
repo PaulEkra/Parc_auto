@@ -110,6 +110,11 @@
                                             <td></td>
                                         </tr>
                                         <tr>
+                                            <td><strong>DISTANCE :</strong></td>
+                                            <td class="center-text">{{ etat_arrive.deplacement.distance }} Km</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
                                             <td><strong></strong></td>
                                             <td class="center-text"><strong>DÉPART :</strong></td>
                                             <td class="center-text"><strong>ARRIVÉE :</strong></td>
@@ -118,6 +123,11 @@
                                             <td><strong>DATE :</strong></td>
                                             <td class="center-text">{{ etat_arrive.deplacement.date_depart }}</td>
                                             <td class="center-text">{{ etat_arrive.date_arrive }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>LIEU :</strong></td>
+                                            <td class="center-text">{{ etat_arrive.deplacement.lieu_depart }}</td>
+                                            <td class="center-text">{{ etat_arrive.deplacement.lieu_arrive }}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>KILOMÉTRAGE :</strong></td>
@@ -132,11 +142,11 @@
                                             <div style="overflow: auto;">
                                                 <div style="float: left; width: 50%;">
                                                     <label style="display: block; text-align: center; text-decoration: underline; text-underline: #0b0b0b">JAUGE D'ESSENCE AU DÉPART :</label>
-                                                    <img class="jauge-image" src="{{ deplacement.photo_jauge_depart.url }}" alt="Image de la jauge" style="height: 250px; display: block; margin: 0 auto;" onclick="showImagePopup('{{ deplacement.photo_jauge_depart.url }}')">
+                                                    <img class="jauge-image" src="{{ deplacement.photo_jauge_depart.url }}" alt="Image de la jauge" style="height: auto;  display: block; margin: 0 auto; max-width: 50%" onclick="showImagePopup('{{ deplacement.photo_jauge_depart.url }}')">
                                                 </div>
                                                 <div style="float: right; width: 50%;">
                                                     <label style="display: block; text-align: center; text-decoration: underline; text-underline: #0b0b0b">JAUGE D'ESSENCE À L'ARRIVÉE :</label>
-                                                    <img class="jauge-image" src="{{ etat_arrive.photo_jauge_arrive.url }}" alt="Image de la jauge" style="height: 250px; display: block; margin: 0 auto;" onclick="showImagePopup('{{ etat_arrive.photo_jauge_arrive.url }}')">
+                                                    <img class="jauge-image" src="{{ etat_arrive.photo_jauge_arrive.url }}" alt="Image de la jauge" style="height: 250px; width: 250px; display: block; margin: 0 auto; max-width: 50%" onclick="showImagePopup('{{ etat_arrive.photo_jauge_arrive.url }}')">
                                                 </div>
                                             </div>
                                         </div>
