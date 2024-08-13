@@ -150,10 +150,10 @@
                                             <td class="text-center">{{ vehicule.date_visite_technique }}</td>
                                         </tr>
                                         {% if  vehicule.date_limite_recepisse %}
-                                        <tr>
-                                            <td><strong>DATE LIMITE DU RECEPISSE D'IMMATRICULATION :</strong></td>
-                                            <td class="text-center">{{ vehicule.date_limite_recepisse }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td><strong>DATE LIMITE DU RECEPISSE D'IMMATRICULATION :</strong></td>
+                                                <td class="text-center">{{ vehicule.date_limite_recepisse }}</td>
+                                            </tr>
                                         {% endif %}
 
                                         <tr>
@@ -185,6 +185,10 @@
                                             <td><strong>TAILLE DU RESERVOIR :</strong></td>
                                             <td class="text-center">{{ vehicule.taille_reservoir }} L</td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>LITRE/100km :</strong></td>
+                                            <td class="text-center">{{ vehicule.litre }} L</td>
+                                        </tr>
 
                                         <tr>
                                             <td><strong>KILOMÉTRAGE AVANT VIDANGE :</strong></td>
@@ -200,19 +204,19 @@
 
                                     <div class="imageContent"  style="align-items: center; text-align: center;">
                                         <div style="margin-bottom: 25px">
-                                        <td>
-                                        {% if vehicule.image_recto and  vehicule.image_verso %}
-                                        <label style="display: block; text-align: center;" id="carte_grise_img">LA CARTE GRISE</label>
-                                            {% if vehicule.image_recto  %}
-                                                <img src="{{ vehicule.image_recto.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_recto.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
-                                        {% endif  %}
-                                     {% if vehicule.image_verso  %}
-                                         <img src="{{ vehicule.image_verso.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_verso.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
-                                        {% endif  %}
-                                     </td>
-                                        {% endif %}
+                                            <td>
+                                                {% if vehicule.image_recto and  vehicule.image_verso %}
+                                                    <label style="display: block; text-align: center;" id="carte_grise_img">LA CARTE GRISE</label>
+                                                    {% if vehicule.image_recto  %}
+                                                        <img src="{{ vehicule.image_recto.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_recto.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                                    {% endif  %}
+                                                    {% if vehicule.image_verso  %}
+                                                        <img src="{{ vehicule.image_verso.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_verso.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                                    {% endif  %}
+                                                    </td>
+                                                {% endif %}
                                         </div>
-                                     <div>  <label style="display: block; text-align: center;text-decoration: underline;text-underline: #0b0b0b" id="vehicule_img">PHOTOS DU VEHICULE </label></div>
+                                        <div>  <label style="display: block; text-align: center;text-decoration: underline;text-underline: #0b0b0b" id="vehicule_img">PHOTOS DU VEHICULE </label></div>
 
                                         {% for image in image %}
                                             <img src="{{ image.images.url }}" alt="profile-img" class="vehicule-image mb-5" onclick="showImagePopup2('{{ image.images.url }}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">

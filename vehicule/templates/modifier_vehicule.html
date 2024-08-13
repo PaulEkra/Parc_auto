@@ -179,6 +179,14 @@
                                                     <p class="help-block">{{ form.carrosserie.errors.0 }}</p>
                                                 {% endif %}
                                             </div>
+                                            <div class="form-group col-md-12 {% if form.litre.errors %}has-error{% endif %}">
+                                                <label for="litre" class="font-weight-bold">Litre /100km :</label>
+                                                <input type="text" class="form-control" id="litre" placeholder="litre /100Km" name="litre" value="{% if form.litre.value %}{{ form.litre.value }}{% endif %}">
+                                                {% if form.litre.errors %}
+                                                    <p class="help-block">{{ form.litre.errors.0 }}</p>
+                                                {% endif %}
+                                            </div>
+
 
                                             <div class="form-group col-md-12 {% if form.place_assises.errors %}has-error{% endif %}">
                                                 <label for="place_assises" class="font-weight-bold">Place assises :</label>
@@ -426,7 +434,7 @@
             const input = event.target;
             const fileNameElement = document.getElementById('fileName_customFile');
             const fileName = input.files.length > 1 ? input.files.length + ' fichers'
-                    :input.files.length === 1
+                :input.files.length === 1
                     ? input.files[0].name
                     : "";
             fileNameElement.textContent = fileName;

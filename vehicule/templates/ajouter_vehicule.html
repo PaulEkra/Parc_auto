@@ -110,7 +110,7 @@
                                                 <p class="help-block error-message" id="error-numero_chassis"></p>
                                             </div>
                                             <div class="form-group col-md-12 {% if form.litre.errors %}has-error{% endif %}">
-                                                <label for="litre" class="font-weight-bold">LITRE/KM :</label>
+                                                <label for="litre" class="font-weight-bold">LITRE/100KM :</label>
                                                 <input type="number" class="form-control" id="litre" placeholder="Exemple : 1" name="litre" value="{% if form.litre.value %}{{ form.litre.value }}{% endif %}">
                                                 {% if form.litre.errors %}
                                                     <p class="help-block">{{ form.litre.errors.0 }}</p>

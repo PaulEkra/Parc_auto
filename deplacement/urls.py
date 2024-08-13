@@ -4,7 +4,7 @@ from deplacement.views import enregistrer_deplacement, depart, liste_deplacement
     liste_deplacement_arrive, modifier_deplacement, details_deplacement, enregistrer_etatArriver, details_arriver, \
     get_deplacements_data, get_deplacements_data2, get_photos_demande_prolongement, accept_prolongement, \
     refuse_prolongement, delete_deplacement, deplacement_search, deplacement_encours_search, arrive_search, \
-    modifier_deplacement_cours, delete_deplacement_cours
+    modifier_deplacement_cours, delete_deplacement_cours, get_data_actuel
 
 app_name = 'deplacement'
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('get_photos_demande_prolongement/', get_photos_demande_prolongement, name='get_photos_demande_prolongement'),
     path('get_deplacements_data/', get_deplacements_data, name='get_deplacements_data'),
     path('get_deplacements_data2/', get_deplacements_data2, name='get_deplacements_data2'),
+    path('get_data_actuel/', get_data_actuel, name='get_data_actuel'),
     path('accept_prolongement/<int:prolongement_id>/', accept_prolongement, name='accept_prolongement'),
     path('refuse_prolongement/<int:prolongement_id>/', refuse_prolongement, name='refuse_prolongement'),
     path('delete_deplacement/<int:deplacement_id>/', delete_deplacement, name='delete_deplacement'),

@@ -32,9 +32,39 @@
                                 <form class="form-horizontal" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_depart">Lieu de Depart:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required  class="form-control" id="lieu_depart"  name="lieu_depart" value="{{ form.lieu_depart.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_arrive">Lieu d'arrivé:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required  class="form-control" id="lieu_arrive"  name="lieu_arrive" value="{{ form.lieu_arrive.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="distance">Distance: <br> (Km)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="distance" name="distance" readonly value="{{ form.distance.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="peage">Coût Péage :</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="peage"  min="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-2 align-self-center mb-0" for="id_vehicule">Véhicule :</label>
                                         <div class="col-sm-9">
                                             {{ form.vehicule }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="cout">Coût approximatif: <br> (FCFA)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="cout" class="form-control" name="cout" readonly value="{{ deplacement.cout}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -70,24 +100,7 @@
                                             <input type="text" class="form-control" id="description" name="description" value="{{ form.description.value }}">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_depart">Lieu de Depart:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" required  class="form-control" id="lieu_depart"  name="lieu_depart" value="{{ form.lieu_depart.value }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-2 align-self-center mb-0" for="lieu_arrive">Lieu d'arrivé:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" required  class="form-control" id="lieu_arrive"  name="lieu_arrive" value="{{ form.lieu_arrive.value }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-2 align-self-center mb-0" for="distance">Distance:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="distance" name="distance" readonly value="{{ form.distance.value }}">
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row" style="margin-top: 33px">
                                         <label class="control-label col-sm-2 align-self-center mb-0" for="email" style="margin-right: 15px">Modifier les images :</label>
                                         <div class="form-control col-sm-9" style="border-radius: 10px; padding-bottom: 35px">
@@ -305,6 +318,56 @@
                 }
             })
         })
+        $(document).ready(function() {
+            $('#selectVehicule').change(function() {
+                var vehicule_id = $(this).val();
+                var distance = parseFloat(document.getElementById('distance').value) || 0;
+                var peage = parseFloat(document.getElementById('peage').value) || 0;
+
+                console.log("Vehicule ID:", vehicule_id);
+                console.log("Distance:", distance);
+                console.log("Peage:", peage);
+
+                if (vehicule_id) {
+                    $.ajax({
+                        url: '{% url "deplacement:get_data_actuel" %}',
+                        data: {
+                            'vehicule_id': vehicule_id
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log("AJAX Response:", data);
+                            if (data.litre_actuel !== undefined && distance > 0) {
+                                // Perform the calculation
+                                var litre_actuel = parseFloat(data.litre_actuel) || 0;
+                                var prix_essence = parseFloat(data.prix_essence) || 0;
+
+                                console.log("Litre Actuel:", litre_actuel);
+                                console.log("Prix Essence:", prix_essence);
+
+                                var cost = ((litre_actuel * distance) / 100) * prix_essence + peage;
+                                console.log("Calculated Cost:", cost);
+
+                                if (!isNaN(cost)) {
+                                    $('#cout').val(cost.toFixed(2)); // Update with 2 decimal places
+                                } else {
+                                    $('#cout').val('N/A');
+                                }
+                            } else {
+                                $('#cout').val('N/A');
+                            }
+                        },
+                        error: function() {
+                            console.error("Error in AJAX request.");
+                            $('#cout').val('Error');
+                        }
+                    });
+                } else {
+                    $('#cout').val('');
+                }
+            });
+        });
+
     </script>
     <script>
         document.getElementById('customFile').addEventListener('change', function(event) {
@@ -332,7 +395,7 @@
             document.getElementById('fileName_photo_jauge_depart').textContent = photo_jauge_depart;
         })
     </script>
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADMvHCa_el49NoS1cnqr_iFR5ZypOKtk8&libraries=places" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADMvHCa_el49NoS1cnqr_iFR5ZypOKtk8&libraries=places" async defer></script>
     <script>
         function initAutocomplete() {
             const autocomplete_arrive = new google.maps.places.Autocomplete(

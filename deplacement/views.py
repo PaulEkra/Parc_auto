@@ -238,7 +238,8 @@ def modifier_deplacement(request, pk):
         # if deplacement.photo_jauge_depart:
         #     initial_data['photo_jauge_depart'] = deplacement.image_jauge
 
-    return render(request, 'modifier_deplacement.html', {'form': form, 'deplacement': deplacement, 'photos': photos,'photo': img})
+    return render(request, 'modifier_deplacement.html',
+                  {'form': form, 'deplacement': deplacement, 'photos': photos, 'photo': img})
 
 
 @login_required(login_url='Connexion')
@@ -603,6 +604,7 @@ def arrive_search(request):
 
     return render(request, 'afficher_deplacement_arrive.html', context)
 
+
 # def get_kilometrage_actuel(request):
 #     vehicule_id = request.GET.get('vehicule_id')
 #     if vehicule_id:
@@ -614,3 +616,17 @@ def arrive_search(request):
 #             return JsonResponse({'error': 'Véhicule non trouvé'}, status=404)
 #     else:
 #         return JsonResponse({'error': 'ID de véhicule non fourni'}, status=400)
+
+
+def get_data_actuel(request):
+    vehicule_id = request.GET.get('vehicule_id')
+    if vehicule_id:
+        try:
+            vehicule = Vehicule.objects.get(pk=vehicule_id)
+            litre_actuel = vehicule.litre
+            prix_essence = vehicule.energie.prix  # Assuming this is the field name for the fuel price
+            return JsonResponse({'litre_actuel': litre_actuel, 'prix_essence': prix_essence})
+        except Vehicule.DoesNotExist:
+            return JsonResponse({'error': 'Véhicule non trouvé'}, status=404)
+    else:
+        return JsonResponse({'error': 'ID de véhicule non fourni'}, status=400)
