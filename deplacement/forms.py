@@ -35,6 +35,7 @@ class DeplacementForm(forms.ModelForm):
             'required': True,
         })
 
+
         # Mise à jour des attributs du widget 'conducteur'
         self.fields['conducteur'].widget.attrs.update({
             'class': "form-control",
